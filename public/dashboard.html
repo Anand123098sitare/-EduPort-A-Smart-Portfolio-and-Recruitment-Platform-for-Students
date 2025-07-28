@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - EduPort</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- User Provided CSS --- */
+      :root {
+        --primary: 237, 94%, 81%;
+        --background: 266, 16%, 92%;
+        --background-secondary: 256, 12%, 12%;
+        --background-secondary-dark: 256, 10%, 10%;
+        --background-secondary-light: 257, 11%, 16%;
+        --text-primary: 0, 0%, 0%;
+        /* Colors */
+        --black: 0, 0%, 0%;
+        --white: 0, 0%, 100%;
+        --quite-gray: 0, 0%, 50%;
+        --grooble: 10, 28%, 93%;
+        /* Sizes */
+        --heading-large: 5.6rem;
+        --heading-medium: 3.6rem;
+        --heading-small: 2.4rem;
+        --paragraph: 1.11rem;
+        --navbar-buttons: 2.4rem;
+        /* misc */
+        --transition-main: 0.175, 0.685, 0.32;
+        /* Fonts */
+        --font-main: "Poppins";
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        color: hsl(var(--text-primary));
+        font-family: var(--font-main);
+        background-color: hsl(var(--background));
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+      }
+      h1 {
+        font-size: var(--heading-large);
+      }
+      h2 {
+        font-size: var(--heading-medium);
+      }
+      h3 {
+        font-size: var(--heading-small);
+      }
+      h1,
+      h2 {
+        font-weight: 900;
+      }
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 800;
+      }
+      p {
+        margin: 0;
+        font-size: var(--paragraph);
+      }
+      a {
+        color: hsla(var(--primary), 1);
+        font-size: var(--paragraph);
+        text-decoration: none;
+      }
+      a:visited {
+        color: hsla(var(--primary), 0.5);
+      }
+      ul,
+      ol {
+        margin: 1em 0;
+      }
+      form {
+        margin: 0;
+      }
+      .flexbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .flexbox-left {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      .flexbox-col {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .flexbox-space-bet {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #navbar {
+        top: 0;
+        left: 0;
+        padding: 0;
+        width: 5em;
+        height: 100vh;
+        position: fixed;
+        z-index: 200;
+        background-color: hsl(var(--background-secondary));
+        transition: width 0.35s cubic-bezier(var(--transition-main), 1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      #navbar:hover {
+        width: 16em;
+      }
+      #navbar::-webkit-scrollbar {
+        width: 8px;
+        background-color: hsl(var(--background-secondary));
+      }
+      #navbar::-webkit-scrollbar-thumb {
+        background-color: hsl(var(--primary));
+      }
+      .navbar-items {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      .navbar-logo {
+        margin: 0 0 2em 0;
+        width: 100%;
+        height: 5em;
+        background: hsl(var(--background-secondary-dark));
+      }
+      .navbar-logo > .navbar-item-inner {
+        width: calc(5rem - 8px);
+      }
+      .navbar-logo > .navbar-item-inner:hover {
+        background-color: transparent;
+      }
+      .navbar-logo > .navbar-item-inner > svg {
+        height: 2em;
+        fill: hsl(var(--white));
+      }
+      .navbar-item {
+        padding: 0 0.5em;
+        width: 100%;
+        cursor: pointer;
+      }
+      .navbar-item-inner {
+        padding: 1em 0;
+        width: 100%;
+        position: relative;
+        color: hsl(var(--quite-gray));
+        border-radius: 0.25em;
+        text-decoration: none;
+        transition: all 0.2s cubic-bezier(var(--transition-main), 1);
+      }
+      .navbar-item-inner:hover {
+        color: hsl(var(--white));
+        background: hsl(var(--background-secondary-light));
+        box-shadow: 0 17px 30px -10px hsla(var(--black), 0.25);
+      }
+      .navbar-item-inner-icon-wrapper {
+        width: calc(5rem - 1em - 8px);
+        position: relative;
+      }
+      .navbar-item-inner-icon-wrapper ion-icon {
+        position: absolute;
+        font-size: calc(var(--navbar-buttons) - 1rem);
+      }
+      .link-text {
+        margin: 0;
+        width: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: all 0.35s cubic-bezier(var(--transition-main), 1);
+        overflow: hidden;
+        opacity: 0;
+      }
+      #navbar:hover .link-text {
+        width: calc(100% - calc(5rem - 8px));
+        opacity: 1;
+      }
+      ::selection {
+        color: hsl(var(--white));
+        background: hsla(var(--primary), 0.33);
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        background-color: hsl(var(--background));
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: hsl(var(--primary));
+      }
+
+      /* --- New Dashboard Styles --- */
+      :root {
+        --background: #f0f2f5;
+        --text-primary: #1d2129;
+        --text-secondary: #65676b;
+        --border-color: #dddfe2;
+        --accent-color: #1877f2;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text-primary);
+      }
+
+      .page-wrapper {
+        margin-left: 5em; /* Same as navbar width */
+        transition: margin-left 0.35s cubic-bezier(var(--transition-main), 1);
+      }
+
+      #navbar:hover ~ .page-wrapper {
+        margin-left: 16em; /* Same as navbar hover width */
+      }
+
+      .top-bar {
+        padding: 1rem 2rem;
+        background-color: #ffffff;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .search-bar {
+        position: relative;
+      }
+
+      .search-bar input {
+        padding: 0.5rem 1rem 0.5rem 2.5rem;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        background-color: #fff;
+        width: 250px;
+      }
+
+      .search-bar ion-icon {
+        position: absolute;
+        left: 0.8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+      }
+
+      .user-profile {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--border-color);
+      }
+
+      .profile-menu {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        width: 200px;
+        overflow: hidden;
+        z-index: 100;
+      }
+
+      .profile-menu-header {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .profile-menu-header p {
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .profile-menu.show {
+        display: block;
+      }
+
+      .profile-menu a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .profile-menu a:hover {
+        background-color: #f0f2f5;
+      }
+
+      .profile-menu .logout-btn {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+
+      .profile-menu .logout-btn:hover {
+        background-color: #f0f2f5;
+      }
+
+      #main-content {
+        padding: 2rem;
+      }
+
+      .main-content-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+      }
+
+      #main-content h1 {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .create-project-btn {
+          background-color: var(--accent-color);
+          color: #fff;
+          padding: 0.7rem 1.2rem;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          cursor: pointer;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background-color: #e9ebee;
+      }
+
+      .project-card-content {
+        padding: 1rem;
+      }
+
+      .project-card-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .project-card-content p {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: center;
+      }
+      .modal.show {
+        display: flex;
+      }
+      .modal-content {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+      }
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      .modal-body h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .modal-body p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+      }
+      .form-group { margin-bottom: 1rem; }
+      .form-group label { display: block; margin-bottom: 0.5rem; }
+      .form-group input, .form-group textarea {
+          width: 100%;
+          padding: 0.8rem;
+          border-radius: 5px;
+          border: 1px solid var(--border-color);
+          background-color: #f0f2f5;
+          color: var(--text-primary);
+          font-size: 1rem;
+          font-family: 'Poppins', sans-serif;
+      }
+      .modal-actions { text-align: right; }
+      .cancel-btn {
+          background-color: #e4e6eb;
+          color: var(--text-primary);
+          margin-right: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <ul class="navbar-items flexbox-col">
+        <li class="navbar-logo flexbox-left">
+          <a class="navbar-item-inner flexbox">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="Layer_1"
+              data-name="Layer 1"
+              viewBox="0 0 1438.88 1819.54"
+            >
+              <polygon
+                points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"
+              />
+              <polygon
+                points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="search-outline"></ion-icon>
+            </div>
+            <span class="link-text">Search</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="home-outline"></ion-icon>
+            </div>
+            <span class="link-text">Home</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="folder-open-outline"></ion-icon>
+            </div>
+            <span class="link-text">Projects</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="pie-chart-outline"></ion-icon>
+            </div>
+            <span class="link-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <span class="link-text">Dev's</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="chatbubbles-outline"></ion-icon>
+            </div>
+            <span class="link-text">Support</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="settings-outline"></ion-icon>
+            </div>
+            <span class="link-text">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="page-wrapper">
+      <header class="top-bar">
+        <div class="header-right">
+          <div class="search-bar">
+            <ion-icon name="search"></ion-icon>
+            <input type="text" placeholder="Search..." />
+          </div>
+          <div class="user-profile" id="user-profile">
+            <img
+              src="https://placehold.co/40x40/cccccc/ffffff?text=L"
+              alt="User Profile"
+            />
+            <div class="profile-menu" id="profile-menu">
+              <div class="profile-menu-header">
+                <p id="profile-name">Loading...</p>
+              </div>
+              <a href="#">My Profile</a>
+              <a href="#">Settings</a>
+              <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <div class="main-content-header">
+            <h1>Overview</h1>
+            <button class="create-project-btn" id="create-project-btn">Create New Project</button>
+        </div>
+        <section class="project-grid" id="project-grid">
+          <!-- Project cards will be dynamically inserted here -->
+        </section>
+      </main>
+    </div>
+
+    <!-- Create/View Project Modal -->
+    <div id="project-modal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">&times;</button>
+        <div class="modal-body" id="modal-body">
+            <!-- Modal content for creating a new project -->
+            <h2>Create a New Project</h2>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="title">Project Title</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" rows="4" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="create-project-btn cancel-btn" id="cancel-btn">Cancel</button>
+                    <button type="submit" class="create-project-btn">Save Project</button>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Part 1: Handle Token on Page Load ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const tokenFromUrl = urlParams.get('token');
+            if (tokenFromUrl) {
+                localStorage.setItem('token', tokenFromUrl);
+                window.history.replaceState({}, document.title, "dashboard.html");
+            }
+
+            // --- Part 2: Verify Token and Protect the Page ---
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // --- Part 3: Element References ---
+            const userProfileImg = document.querySelector('#user-profile img');
+            const userProfileName = document.getElementById('profile-name');
+            const userProfile = document.getElementById('user-profile');
+            const profileMenu = document.getElementById('profile-menu');
+            const logoutBtn = document.getElementById('logout-btn');
+            const projectGrid = document.getElementById('project-grid');
+            const modal = document.getElementById('project-modal');
+            const modalClose = document.getElementById('modal-close');
+            const createProjectBtn = document.getElementById('create-project-btn');
+            const projectForm = document.getElementById('project-form');
+            const cancelBtn = document.getElementById('cancel-btn');
+
+
+            // --- Profile Menu Dropdown Logic ---
+            if (userProfile && profileMenu) {
+                userProfile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileMenu.classList.toggle('show');
+                });
+            }
+            window.addEventListener('click', () => {
+                if (profileMenu && profileMenu.classList.contains('show')) {
+                    profileMenu.classList.remove('show');
+                }
+            });
+
+            // --- Logout Logic ---
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // --- API Call to Fetch User Profile Data ---
+            const loadUserProfile = async () => {
+                try {
+                    const res = await fetch('http://localhost:3000/api/users/me', {
+                        headers: { 'x-auth-token': token }
+                    });
+                    if (!res.ok) throw new Error('Could not fetch user profile.');
+                    
+                    const user = await res.json();
+                    if (userProfileImg && user.profilePictureUrl) userProfileImg.src = user.profilePictureUrl;
+                    if (userProfileName && user.name) userProfileName.textContent = user.name;
+                } catch (error) {
+                    console.error(error);
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                }
+            };
+
+            // --- API Call to Fetch and Display Projects ---
+            const fetchAndDisplayProjects = async () => {
+                try {
+                    const res = await fetch('http://localhost:3000/api/projects', {
+                        headers: { 'x-auth-token': token }
+                    });
+                    if (!res.ok) throw new Error('Failed to fetch projects');
+
+                    const projects = await res.json();
+                    projectGrid.innerHTML = '';
+                    
+                    if (projects.length === 0) {
+                        projectGrid.innerHTML = '<p style="color: var(--text-secondary);">You have not created any projects yet. Click "Create New Project" to get started!</p>';
+                    } else {
+                        projects.forEach(project => {
+                            const card = document.createElement('div');
+                            card.className = 'project-card';
+                            card.innerHTML = `
+                                <img class="project-card-image" src="https://placehold.co/600x400/e9ebee/333333?text=Project" alt="${project.title}">
+                                <div class="project-card-content">
+                                    <h3>${project.title}</h3>
+                                    <p>${project.description.substring(0, 100)}...</p>
+                                </div>
+                            `;
+                            projectGrid.appendChild(card);
+                        });
+                    }
+                } catch (err) {
+                    console.error(err);
+                    projectGrid.innerHTML = '<p style="color: red;">Could not load projects. Please try again later.</p>';
+                }
+            };
+
+            // --- Modal Logic ---
+            if(createProjectBtn) {
+                createProjectBtn.addEventListener('click', () => modal.classList.add('show'));
+            }
+            if(modalClose) {
+                modalClose.addEventListener('click', () => modal.classList.remove('show'));
+            }
+            if(cancelBtn) {
+                cancelBtn.addEventListener('click', () => modal.classList.remove('show'));
+            }
+            if(modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('show');
+                    }
+                });
+            }
+
+            // --- Handle Create Project Form Submission ---
+            if(projectForm) {
+                projectForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const title = document.getElementById('title').value;
+                    const description = document.getElementById('description').value;
+
+                    try {
+                        const res = await fetch('http://localhost:3000/api/projects', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'x-auth-token': token
+                            },
+                            body: JSON.stringify({ title, description })
+                        });
+
+                        if (!res.ok) throw new Error('Failed to create project');
+                        
+                        modal.classList.remove('show');
+                        projectForm.reset();
+                        fetchAndDisplayProjects(); // Refresh the project list
+                    } catch (err) {
+                        console.error(err);
+                        alert('Error creating project.');
+                    }
+                });
+            }
+
+            // --- Initial Load ---
+            Promise.all([
+                loadUserProfile(),
+                fetchAndDisplayProjects()
+            ]);
+        });
+    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

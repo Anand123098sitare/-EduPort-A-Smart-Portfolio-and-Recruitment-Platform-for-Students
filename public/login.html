@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eduport | Login</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Londrina+Shadow&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Navigation menu - positioned better to avoid overlap -->
+    <div class="nav-wrapper">
+      <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon" />
+      <label for="menu-icon"></label>
+      <nav class="nav">
+        <ul class="pt-5">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="page-container">
+      <div class="login-container">
+        <div class="form-container">
+          <div class="eduport-logo">
+            <span class="logo-text">Eduport</span>
+            <div class="logo-dot"></div>
+          </div>
+          <h1>Welcome Back</h1>
+          <p class="subtitle">Enter your credentials to access your account</p>
+
+          <form id="login-form">
+            <div class="input-group">
+              <div class="input-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input type="email" id="email" placeholder="Email" required />
+              <div class="input-highlight"></div>
+            </div>
+
+            <div class="input-group">
+              <div class="input-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+              />
+              <div class="toggle-password">
+                <i class="fas fa-eye"></i>
+              </div>
+              <div class="input-highlight"></div>
+            </div>
+
+            <div class="options-row">
+              <div class="remember-me">
+                <input type="checkbox" id="remember" />
+                <label for="remember">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit">
+              <div class="button-outer">
+                <div class="button-inner">
+                  <span>Sign In</span>
+                </div>
+              </div>
+            </button>
+
+            <div class="divider">
+              <span>or continue with</span>
+            </div>
+
+            <div class="social-login">
+              <button type="button" class="social-btn google">
+                <i class="fab fa-google"></i>
+              </button>
+              <button type="button" class="social-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button type="button" class="social-btn twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+            </div>
+          </form>
+
+          <div class="register-link">
+            <p>Don't have an account? <a href="#">Register</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-container">
+        <div class="content">
+          <span id="content-head">Eduport</span>
+          <h2>SHAPE</h2>
+          <h2>TOMMOROW</h2>
+          <p class="tagline">Your journey to excellence begins here, Document your growth, one project at a time.</p>
+          <p class="tagline2">Showcase the work that takes you past the classroom.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
