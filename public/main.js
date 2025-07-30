@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
-            // CRITICAL: Prevents the browser's default form submission (which causes the 404)
+            // CRITICAL: Prevents the browser's default form submission
             e.preventDefault();
 
             const email = document.getElementById('email').value;
@@ -78,13 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // This means the server responded with a 2xx status code (e.g., 200 OK)
                     showNotification('Login successful!', 'success');
-                    // In a real application, you would save the token and redirect
+                    // Save the token to the browser's local storage
                     localStorage.setItem('token', data.token);
-                    // For now, we'll just log it. Uncomment the line below to redirect.
-                    // window.location.href = '/dashboard.html';
-                    console.log('Received Token:', data.token);
+                    
+                    // **FIX:** Redirect to the dashboard page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000); // 1 second delay to allow user to see success message
+
                 } else {
                     // This means the server responded with a 4xx or 5xx error
                     showNotification(`Error: ${data.message}`, 'error');
@@ -95,9 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 showNotification('Could not connect to the server.', 'error');
             } finally {
                 // This block runs whether the request succeeded or failed
-                // Reset the button to its original state
-                if(buttonInner) buttonInner.textContent = 'Sign In';
-                loginBtn.disabled = false;
+                // Reset the button to its original state (unless redirecting)
+                if (!localStorage.getItem('token')) {
+                    if(buttonInner) buttonInner.textContent = 'Sign In';
+                    loginBtn.disabled = false;
+                }
             }
         });
     }
@@ -106,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const googleBtn = document.querySelector('.social-btn.google');
     if (googleBtn) {
         googleBtn.addEventListener('click', () => {
-            // Redirect the user to the backend's Google auth route, which will then redirect to Google
+            // Redirect the user to the backend's Google auth route
             window.location.href = 'http://localhost:3000/auth/google';
         });
     }
@@ -115,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (facebookBtn) {
         facebookBtn.addEventListener('click', () => {
             showNotification('Facebook login not yet implemented.', 'info');
-            // When implemented, it would be: window.location.href = 'http://localhost:3000/auth/facebook';
         });
     }
 
@@ -123,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (twitterBtn) {
         twitterBtn.addEventListener('click', () => {
             showNotification('Twitter login not yet implemented.', 'info');
-            // When implemented, it would be: window.location.href = 'http://localhost:3000/auth/twitter';
         });
     }
 });
@@ -151,15 +153,15 @@ style.textContent = `
     }
     
     .notification.success {
-        background-color: var(--success-color);
+        background-color: #2ecc71;
     }
     
     .notification.error {
-        background-color: var(--error-color);
+        background-color: #e74c3c;
     }
     
     .notification.info {
-        background-color: var(--primary-color);
+        background-color: #3498db;
     }
     
     .spinner {

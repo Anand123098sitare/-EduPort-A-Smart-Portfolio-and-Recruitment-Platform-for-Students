@@ -4,470 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - EduPort</title>
+    <!-- FIX: Added an inline SVG favicon to prevent the browser from searching for favicon.ico -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* --- User Provided CSS --- */
-      :root {
-        --primary: 237, 94%, 81%;
-        --background: 266, 16%, 92%;
-        --background-secondary: 256, 12%, 12%;
-        --background-secondary-dark: 256, 10%, 10%;
-        --background-secondary-light: 257, 11%, 16%;
-        --text-primary: 0, 0%, 0%;
-        /* Colors */
-        --black: 0, 0%, 0%;
-        --white: 0, 0%, 100%;
-        --quite-gray: 0, 0%, 50%;
-        --grooble: 10, 28%, 93%;
-        /* Sizes */
-        --heading-large: 5.6rem;
-        --heading-medium: 3.6rem;
-        --heading-small: 2.4rem;
-        --paragraph: 1.11rem;
-        --navbar-buttons: 2.4rem;
-        /* misc */
-        --transition-main: 0.175, 0.685, 0.32;
-        /* Fonts */
-        --font-main: "Poppins";
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: inherit;
-      }
-      html,
-      body {
-        margin: 0;
-        width: 100%;
-        color: hsl(var(--text-primary));
-        font-family: var(--font-main);
-        background-color: hsl(var(--background));
-        -webkit-font-smoothing: antialiased;
-        scroll-behavior: smooth;
-        box-sizing: border-box;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin: 0;
-      }
-      h1 {
-        font-size: var(--heading-large);
-      }
-      h2 {
-        font-size: var(--heading-medium);
-      }
-      h3 {
-        font-size: var(--heading-small);
-      }
-      h1,
-      h2 {
-        font-weight: 900;
-      }
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-weight: 800;
-      }
-      p {
-        margin: 0;
-        font-size: var(--paragraph);
-      }
-      a {
-        color: hsla(var(--primary), 1);
-        font-size: var(--paragraph);
-        text-decoration: none;
-      }
-      a:visited {
-        color: hsla(var(--primary), 0.5);
-      }
-      ul,
-      ol {
-        margin: 1em 0;
-      }
-      form {
-        margin: 0;
-      }
-      .flexbox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .flexbox-left {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-      }
-      .flexbox-col {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-      }
-      .flexbox-space-bet {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      #navbar {
-        top: 0;
-        left: 0;
-        padding: 0;
-        width: 5em;
-        height: 100vh;
-        position: fixed;
-        z-index: 200;
-        background-color: hsl(var(--background-secondary));
-        transition: width 0.35s cubic-bezier(var(--transition-main), 1);
-        overflow-y: auto;
-        overflow-x: hidden;
-      }
-      #navbar:hover {
-        width: 16em;
-      }
-      #navbar::-webkit-scrollbar {
-        width: 8px;
-        background-color: hsl(var(--background-secondary));
-      }
-      #navbar::-webkit-scrollbar-thumb {
-        background-color: hsl(var(--primary));
-      }
-      .navbar-items {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-      }
-      .navbar-logo {
-        margin: 0 0 2em 0;
-        width: 100%;
-        height: 5em;
-        background: hsl(var(--background-secondary-dark));
-      }
-      .navbar-logo > .navbar-item-inner {
-        width: calc(5rem - 8px);
-      }
-      .navbar-logo > .navbar-item-inner:hover {
-        background-color: transparent;
-      }
-      .navbar-logo > .navbar-item-inner > svg {
-        height: 2em;
-        fill: hsl(var(--white));
-      }
-      .navbar-item {
-        padding: 0 0.5em;
-        width: 100%;
-        cursor: pointer;
-      }
-      .navbar-item-inner {
-        padding: 1em 0;
-        width: 100%;
-        position: relative;
-        color: hsl(var(--quite-gray));
-        border-radius: 0.25em;
-        text-decoration: none;
-        transition: all 0.2s cubic-bezier(var(--transition-main), 1);
-      }
-      .navbar-item-inner:hover {
-        color: hsl(var(--white));
-        background: hsl(var(--background-secondary-light));
-        box-shadow: 0 17px 30px -10px hsla(var(--black), 0.25);
-      }
-      .navbar-item-inner-icon-wrapper {
-        width: calc(5rem - 1em - 8px);
-        position: relative;
-      }
-      .navbar-item-inner-icon-wrapper ion-icon {
-        position: absolute;
-        font-size: calc(var(--navbar-buttons) - 1rem);
-      }
-      .link-text {
-        margin: 0;
-        width: 0;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        transition: all 0.35s cubic-bezier(var(--transition-main), 1);
-        overflow: hidden;
-        opacity: 0;
-      }
-      #navbar:hover .link-text {
-        width: calc(100% - calc(5rem - 8px));
-        opacity: 1;
-      }
-      ::selection {
-        color: hsl(var(--white));
-        background: hsla(var(--primary), 0.33);
-      }
-      ::-webkit-scrollbar {
-        width: 8px;
-        background-color: hsl(var(--background));
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: hsl(var(--primary));
-      }
-
-      /* --- New Dashboard Styles --- */
-      :root {
-        --background: #f0f2f5;
-        --text-primary: #1d2129;
-        --text-secondary: #65676b;
-        --border-color: #dddfe2;
-        --accent-color: #1877f2;
-      }
-
-      body {
-        background-color: var(--background);
-        color: var(--text-primary);
-      }
-
-      .page-wrapper {
-        margin-left: 5em; /* Same as navbar width */
-        transition: margin-left 0.35s cubic-bezier(var(--transition-main), 1);
-      }
-
-      #navbar:hover ~ .page-wrapper {
-        margin-left: 16em; /* Same as navbar hover width */
-      }
-
-      .top-bar {
-        padding: 1rem 2rem;
-        background-color: #ffffff;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-      }
-
-      .header-right {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-      }
-
-      .search-bar {
-        position: relative;
-      }
-
-      .search-bar input {
-        padding: 0.5rem 1rem 0.5rem 2.5rem;
-        border-radius: 20px;
-        border: 1px solid var(--border-color);
-        background-color: #fff;
-        width: 250px;
-      }
-
-      .search-bar ion-icon {
-        position: absolute;
-        left: 0.8rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-secondary);
-      }
-
-      .user-profile {
-        position: relative;
-        cursor: pointer;
-      }
-
-      .user-profile img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid var(--border-color);
-      }
-
-      .profile-menu {
-        display: none;
-        position: absolute;
-        top: 50px;
-        right: 0;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        width: 200px;
-        overflow: hidden;
-        z-index: 100;
-      }
-
-      .profile-menu-header {
-        padding: 1rem;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .profile-menu-header p {
-        font-weight: 600;
-        margin: 0;
-      }
-
-      .profile-menu.show {
-        display: block;
-      }
-
-      .profile-menu a {
-        display: block;
-        padding: 0.75rem 1rem;
-        color: var(--text-primary);
-        text-decoration: none;
-        font-size: 0.9rem;
-      }
-
-      .profile-menu a:hover {
-        background-color: #f0f2f5;
-      }
-
-      .profile-menu .logout-btn {
-        width: 100%;
-        text-align: left;
-        background: none;
-        border: none;
-        color: var(--text-primary);
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-        cursor: pointer;
-      }
-
-      .profile-menu .logout-btn:hover {
-        background-color: #f0f2f5;
-      }
-
-      #main-content {
-        padding: 2rem;
-      }
-
-      .main-content-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-      }
-
-      #main-content h1 {
-        font-size: 2rem;
-        font-weight: 700;
-      }
-
-      .create-project-btn {
-          background-color: var(--accent-color);
-          color: #fff;
-          padding: 0.7rem 1.2rem;
-          border: none;
-          border-radius: 8px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          cursor: pointer;
-      }
-
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .project-card {
-        background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      .project-card-image {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        background-color: #e9ebee;
-      }
-
-      .project-card-content {
-        padding: 1rem;
-      }
-
-      .project-card-content h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.25rem;
-      }
-
-      .project-card-content p {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-      }
-
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        align-items: center;
-        justify-content: center;
-      }
-      .modal.show {
-        display: flex;
-      }
-      .modal-content {
-        background-color: #fff;
-        padding: 2rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 500px;
-        position: relative;
-      }
-      .modal-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1.5rem;
-        color: var(--text-secondary);
-        cursor: pointer;
-        border: none;
-        background: none;
-      }
-      .modal-body h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      .modal-body p {
-        color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-      }
-      .form-group { margin-bottom: 1rem; }
-      .form-group label { display: block; margin-bottom: 0.5rem; }
-      .form-group input, .form-group textarea {
-          width: 100%;
-          padding: 0.8rem;
-          border-radius: 5px;
-          border: 1px solid var(--border-color);
-          background-color: #f0f2f5;
-          color: var(--text-primary);
-          font-size: 1rem;
-          font-family: 'Poppins', sans-serif;
-      }
-      .modal-actions { text-align: right; }
-      .cancel-btn {
-          background-color: #e4e6eb;
-          color: var(--text-primary);
-          margin-right: 0.5rem;
-      }
-    </style>
+    <link rel="stylesheet" href="dashboard.css">
   </head>
   <body>
     <nav id="navbar">
@@ -490,15 +35,7 @@
           </a>
         </li>
         <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="search-outline"></ion-icon>
-            </div>
-            <span class="link-text">Search</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="index.html">
             <div class="navbar-item-inner-icon-wrapper flexbox">
               <ion-icon name="home-outline"></ion-icon>
             </div>
@@ -506,7 +43,7 @@
           </a>
         </li>
         <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="projects.html">
             <div class="navbar-item-inner-icon-wrapper flexbox">
               <ion-icon name="folder-open-outline"></ion-icon>
             </div>
@@ -514,7 +51,7 @@
           </a>
         </li>
         <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="dashboard.html">
             <div class="navbar-item-inner-icon-wrapper flexbox">
               <ion-icon name="pie-chart-outline"></ion-icon>
             </div>
@@ -537,14 +74,6 @@
             <span class="link-text">Support</span>
           </a>
         </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="settings-outline"></ion-icon>
-            </div>
-            <span class="link-text">Settings</span>
-          </a>
-        </li>
       </ul>
     </nav>
 
@@ -564,7 +93,7 @@
               <div class="profile-menu-header">
                 <p id="profile-name">Loading...</p>
               </div>
-              <a href="#">My Profile</a>
+              <button id="my-profile-btn">My Profile</button>
               <a href="#">Settings</a>
               <button class="logout-btn" id="logout-btn">Logout</button>
             </div>
@@ -583,12 +112,11 @@
       </main>
     </div>
 
-    <!-- Create/View Project Modal -->
+    <!-- Create Project Modal -->
     <div id="project-modal" class="modal">
       <div class="modal-content">
-        <button class="modal-close" id="modal-close">&times;</button>
-        <div class="modal-body" id="modal-body">
-            <!-- Modal content for creating a new project -->
+        <button class="modal-close" id="project-modal-close">&times;</button>
+        <div class="modal-body">
             <h2>Create a New Project</h2>
             <form id="project-form">
                 <div class="form-group">
@@ -600,13 +128,41 @@
                     <textarea id="description" rows="4" required></textarea>
                 </div>
                 <div class="modal-actions">
-                    <button type="button" class="create-project-btn cancel-btn" id="cancel-btn">Cancel</button>
+                    <button type="button" class="create-project-btn cancel-btn" id="cancel-create-btn">Cancel</button>
                     <button type="submit" class="create-project-btn">Save Project</button>
                 </div>
             </form>
         </div>
       </div>
     </div>
+
+    <!-- My Profile Modal -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" id="profile-modal-close">&times;</button>
+          <div class="modal-body">
+              <h2>My Profile</h2>
+              <form id="profile-form">
+                  <div class="profile-picture-upload">
+                      <img src="https://placehold.co/80x80/cccccc/ffffff?text=P" alt="Profile Preview" class="profile-picture-preview" id="profile-picture-preview">
+                      <div>
+                          <label for="profile-picture-input">Upload Photo</label>
+                          <input type="file" id="profile-picture-input" accept="image/png, image/jpeg">
+                          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">PNG or JPG, max 2MB.</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="profile-name-input">Full Name</label>
+                      <input type="text" id="profile-name-input" required>
+                  </div>
+                  <div class="modal-actions">
+                      <button type="button" class="create-project-btn cancel-btn" id="cancel-profile-btn">Cancel</button>
+                      <button type="submit" class="create-project-btn">Save Changes</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -632,33 +188,31 @@
             const profileMenu = document.getElementById('profile-menu');
             const logoutBtn = document.getElementById('logout-btn');
             const projectGrid = document.getElementById('project-grid');
-            const modal = document.getElementById('project-modal');
-            const modalClose = document.getElementById('modal-close');
+            
+            // Modals
+            const createProjectModal = document.getElementById('project-modal');
+            const profileModal = document.getElementById('profile-modal');
+            
+            // Buttons
+            const myProfileBtn = document.getElementById('my-profile-btn');
             const createProjectBtn = document.getElementById('create-project-btn');
-            const projectForm = document.getElementById('project-form');
-            const cancelBtn = document.getElementById('cancel-btn');
-
-
+            
             // --- Profile Menu Dropdown Logic ---
-            if (userProfile && profileMenu) {
-                userProfile.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    profileMenu.classList.toggle('show');
-                });
-            }
+            userProfile.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileMenu.classList.toggle('show');
+            });
             window.addEventListener('click', () => {
-                if (profileMenu && profileMenu.classList.contains('show')) {
+                if (profileMenu.classList.contains('show')) {
                     profileMenu.classList.remove('show');
                 }
             });
 
             // --- Logout Logic ---
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    localStorage.removeItem('token');
-                    window.location.href = 'login.html';
-                });
-            }
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            });
             
             // --- API Call to Fetch User Profile Data ---
             const loadUserProfile = async () => {
@@ -669,8 +223,20 @@
                     if (!res.ok) throw new Error('Could not fetch user profile.');
                     
                     const user = await res.json();
-                    if (userProfileImg && user.profilePictureUrl) userProfileImg.src = user.profilePictureUrl;
-                    if (userProfileName && user.name) userProfileName.textContent = user.name;
+                    
+                    if (user.profilePictureUrl) {
+                        const imageUrl = user.profilePictureUrl.startsWith('http') ? user.profilePictureUrl : `http://localhost:3000${user.profilePictureUrl}`;
+                        userProfileImg.src = imageUrl;
+                    } else {
+                        const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                        userProfileImg.src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
+                    }
+                    
+                    userProfileName.textContent = user.name || user.email;
+
+                    document.getElementById('profile-name-input').value = user.name || '';
+                    document.getElementById('profile-picture-preview').src = userProfileImg.src;
+
                 } catch (error) {
                     console.error(error);
                     localStorage.removeItem('token');
@@ -711,52 +277,86 @@
                 }
             };
 
-            // --- Modal Logic ---
-            if(createProjectBtn) {
-                createProjectBtn.addEventListener('click', () => modal.classList.add('show'));
-            }
-            if(modalClose) {
-                modalClose.addEventListener('click', () => modal.classList.remove('show'));
-            }
-            if(cancelBtn) {
-                cancelBtn.addEventListener('click', () => modal.classList.remove('show'));
-            }
-            if(modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('show');
-                    }
-                });
-            }
+            // --- Modal Opening/Closing Logic ---
+            const openModal = (modal) => modal.classList.add('show');
+            const closeModal = (modal) => modal.classList.remove('show');
+
+            createProjectBtn.addEventListener('click', () => openModal(createProjectModal));
+            myProfileBtn.addEventListener('click', () => openModal(profileModal));
+
+            document.getElementById('project-modal-close').addEventListener('click', () => closeModal(createProjectModal));
+            document.getElementById('cancel-create-btn').addEventListener('click', () => closeModal(createProjectModal));
+
+            document.getElementById('profile-modal-close').addEventListener('click', () => closeModal(profileModal));
+            document.getElementById('cancel-profile-btn').addEventListener('click', () => closeModal(profileModal));
 
             // --- Handle Create Project Form Submission ---
-            if(projectForm) {
-                projectForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const title = document.getElementById('title').value;
-                    const description = document.getElementById('description').value;
+            document.getElementById('project-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                try {
+                    const res = await fetch('http://localhost:3000/api/projects', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                        body: JSON.stringify({ title, description })
+                    });
+                    if (!res.ok) throw new Error('Failed to create project');
+                    closeModal(createProjectModal);
+                    e.target.reset();
+                    fetchAndDisplayProjects();
+                } catch (err) {
+                    console.error(err);
+                    alert('Error creating project.');
+                }
+            });
 
-                    try {
-                        const res = await fetch('http://localhost:3000/api/projects', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'x-auth-token': token
-                            },
-                            body: JSON.stringify({ title, description })
-                        });
+            // --- Handle Profile Update ---
+            const profilePictureInput = document.getElementById('profile-picture-input');
+            const profilePicturePreview = document.getElementById('profile-picture-preview');
 
-                        if (!res.ok) throw new Error('Failed to create project');
-                        
-                        modal.classList.remove('show');
-                        projectForm.reset();
-                        fetchAndDisplayProjects(); // Refresh the project list
-                    } catch (err) {
-                        console.error(err);
-                        alert('Error creating project.');
+            profilePictureInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        profilePicturePreview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('profile-name-input').value;
+                const file = profilePictureInput.files[0];
+                
+                const formData = new FormData();
+                formData.append('name', name);
+                if (file) {
+                    formData.append('profilePicture', file);
+                }
+
+                try {
+                    const res = await fetch('http://localhost:3000/api/users/me', {
+                        method: 'PUT',
+                        headers: { 'x-auth-token': token },
+                        body: formData
+                    });
+                    
+                    if (!res.ok) {
+                        const errorData = await res.json().catch(() => ({ message: 'Failed to update profile' }));
+                        throw new Error(errorData.message);
                     }
-                });
-            }
+
+                    closeModal(profileModal);
+                    loadUserProfile(); // Refresh the profile display
+
+                } catch (err) {
+                    console.error(err);
+                    alert(`Error updating profile: ${err.message}`);
+                }
+            });
 
             // --- Initial Load ---
             Promise.all([

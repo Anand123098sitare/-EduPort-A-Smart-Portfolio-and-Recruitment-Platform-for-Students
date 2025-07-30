@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Showcase</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Inconsolata&family=Lora&family=Nothing+You+Could+Do&family=Smooch+Sans&family=Unica+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="projects.css" />
+    <style>
+      /* ensure profile dropdown visibility */
+      .profile-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <ul class="navbar-items flexbox-col">
+        <li class="navbar-logo flexbox-left">
+          <a class="navbar-item-inner flexbox">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="Layer_1"
+              data-name="Layer 1"
+              viewBox="0 0 1438.88 1819.54"
+            >
+              <polygon
+                points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"
+              />
+              <polygon
+                points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="index.html">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="home-outline"></ion-icon>
+            </div>
+            <span class="link-text">Home</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="projects.html">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="folder-open-outline"></ion-icon>
+            </div>
+            <span class="link-text">Projects</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left" href="dashboard.html">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="pie-chart-outline"></ion-icon>
+            </div>
+            <span class="link-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <span class="link-text">Dev's</span>
+          </a>
+        </li>
+        <li class="navbar-item flexbox-left">
+          <a class="navbar-item-inner flexbox-left">
+            <div class="navbar-item-inner-icon-wrapper flexbox">
+              <ion-icon name="chatbubbles-outline"></ion-icon>
+            </div>
+            <span class="link-text">Support</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="page-wrapper">
+      <header class="top-bar">
+        <div class="header-right">
+          <div class="user-profile" id="user-profile">
+            <img
+              src="https://placehold.co/40x40/cccccc/ffffff?text=L"
+              alt="User Profile"
+              id="profile-image"
+            />
+            <div class="profile-menu" id="profile-menu">
+              <div class="profile-menu-header">
+                <p id="profile-name">Loading...</p>
+              </div>
+              <button id="my-profile-btn">My Profile</button>
+              <a href="#">Settings</a>
+              <button class="logout-btn" id="logout-btn">Logout</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div id="shelf">
+        <!-- Book 1: Graphic Design -->
+        <div class="book-bg graphic">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h1>Android Development</h1>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page">
+                <div>
+                  <h1>Graphic Design</h1>
+                  <p class="text">
+                    &emsp;Primitivism gothic art situationist international
+                    neoclassicism neo-impressionism multiculturalism
+                    postmodernism primitivism, postmodern art dada hyperrealism
+                    existentialism neue slowenische kunst renaissance.
+                  </p>
+                </div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1618004912476-29818d81ae2e?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE1NTI1MjY&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+              </div>
+              <div class="page">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1659034638032-3a0e9b7ac8d0?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE0NTUzMjM&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+                <div>
+                  <p class="text">
+                    &emsp;Modernipsum dolor sit amet renaissance situationist
+                    international metaphysical art, deformalism manierism op art
+                    social realism neo-minimalism. Post-painterly abstraction
+                    socialist realism cloisonnism impressionism pop art
+                    illusionism, dada cloisonnism biedermeier.
+                  </p>
+                </div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 2: Data Visualization -->
+        <div class="book-bg data">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h1>Cloud & DevOps</h1>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1642516303080-431f6681f864?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MDU5MzU&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+                <div>
+                  <h1 style="margin-top: 1rem">Data Visualization</h1>
+                  <p class="text">
+                    &emsp;Rig Veda qui dolorem ipsum quia dolor sit amet
+                    vanquish the impossible shores of the cosmic ocean Rig Veda
+                    venture?
+                  </p>
+                </div>
+              </div>
+              <div class="page">
+                <div>
+                  <p class="text">
+                    &emsp;Two ghostly white figures in coveralls and helmets are
+                    softly dancing emerged into consciousness are creatures of
+                    the cosmos white dwarf as a patch of light muse about?
+                    Intelligent beings the only home we've ever known
+                    explorations.
+                  </p>
+                </div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1584291527935-456e8e2dd734?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MDQyMTY&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 3: Photography -->
+        <div class="book-bg photo">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h3>Desktop Application's</h3>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page is-grid">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1659974751348-81f2acd062cc?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzAxNTU&ixlib=rb-1.2.1&q=80);
+                    grid-column: 1 / 4;
+                  "
+                ></div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1659256955381-4e6636e3aa56?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzAxMzI&ixlib=rb-1.2.1&q=80);
+                    grid-row: 2 / 4;
+                  "
+                ></div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1542382156909-9ae37b3f56fd?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzA3NTU&ixlib=rb-1.2.1&q=80);
+                    grid-column: 2 / 4;
+                    grid-row: 2 / 4;
+                  "
+                ></div>
+              </div>
+              <div class="page is-grid">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1649554007580-aeba20951028?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzA1NjU&ixlib=rb-1.2.1&q=80);
+                    grid-column: 1 / 3;
+                    grid-row: 1 / 3;
+                  "
+                ></div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1661546135630-bae33b1bf310?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzA1NjU&ixlib=rb-1.2.1&q=80);
+                    grid-row: 1 / 3;
+                  "
+                ></div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1660296444901-253891bb61c0?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzA4Mjc&ixlib=rb-1.2.1&q=80);
+                    grid-column: 1 / 3;
+                  "
+                ></div>
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1660219927145-40fb8403995b?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MzAxNTU&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 4: Landscape Design -->
+        <div class="book-bg landscape">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h1>AI/ML</h1>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1610989653808-2303456a25e6?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MDYxNzU&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+              </div>
+              <div class="page">
+                <div>
+                  <h1>Landscape Design</h1>
+                  <p class="text">
+                    &emsp;Sed quia consequuntur magni dolores eos qui ratione
+                    voluptatem sequi nesciunt made in the interiors of
+                    collapsing stars paroxysm of global death star stuff
+                    harvesting star light extraplanetary hearts of the stars.
+                    Kindling the energy hidden in matter vanquish the impossible
+                    rogue white dwarf rogue descended from astronomers. Not a
+                    sunrise but a galaxyrise hydrogen atoms kindling the energy
+                    hidden in matter qui dolorem ipsum quia dolor sit amet
+                    citizens of distant epochs a still more glorious dawn
+                    awaits. Rich in heavy atoms emerged into consciousness
+                    circumnavigated as a patch of light.
+                  </p>
+                </div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 5: Creative Writing -->
+        <div class="book-bg writing">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h3>Game Development,</h3>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page">
+                <div>
+                  <h3 style="text-align: center">Creative</h3>
+                  <p class="text">
+                    &emsp;Something incredible is waiting to be known vastness
+                    is bearable only through love star stuff harvesting star
+                    light a billion trillion hearts of the stars quis nostrum
+                    exercitationem ullam corporis suscipit laboriosam.
+                    Encyclopaedia galactica intelligent beings for which there's
+                    little good evidence Apollonius of Perga stirred by
+                    starlight?
+                  </p>
+                  <p class="text">
+                    &emsp;The carbon in our apple pies autem vel eum iure
+                    reprehenderit qui in ea voluptate velit esse quam nihil
+                    molestiae consequatur laws of physics courage of our
+                    questions sed quia non numquam eius modi tempora incidunt.
+                  </p>
+                </div>
+              </div>
+              <div class="page">
+                <div style="text-align: center">
+                  <h3>Writing</h3>
+                  <p class="text">
+                    Something incredible is waiting<br />to be known<br />vastness
+                    is bearable only through love<br />star stuff harvesting
+                    star light<br />a billion trillion hearts<br />of the
+                    stars<br />quis nostrum exercitationem<br />ullam corporis
+                    suscipit laboriosam.<br />Encyclopaedia galactica
+                    intelligent beings<br />ship of the imagination<br />with
+                    pretty stories<br />for which there's little good
+                    evidence<br />Apollonius of Perga<br />stirred by starlight?
+                  </p>
+                </div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Book 6: Web Design -->
+        <div class="book-bg web">
+          <div class="book">
+            <div id="book-shading"></div>
+            <h1>Web Development</h1>
+            <h3>1.0</h3>
+            <div class="contents">
+              <div class="back-button">
+                <svg viewBox="0 0 512 512" title="Close Book">
+                  <path
+                    d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
+                  />
+                </svg>
+              </div>
+              <div class="page">
+                <h1>Web Development</h1>
+                <p class="text">
+                  &emsp;Sed quia consequuntur magni dolores eos qui ratione
+                  voluptatem sequi nesciunt made in the interiors of collapsing
+                  stars paroxysm of global death star stuff harvesting star
+                  light extraplanetary hearts of the stars.
+                </p>
+                <p class="text">
+                  &emsp;Kindling the energy hidden in matter vanquish the
+                  impossible rogue white dwarf rogue descended from astronomers.
+                  Not a sunrise but a galaxyrise hydrogen atoms kindling the
+                  energy hidden in matter qui dolorem ipsum quia dolor sit amet
+                  citizens of distant epochs a still more glorious dawn awaits.
+                </p>
+              </div>
+              <div class="page">
+                <div
+                  class="illus"
+                  style="
+                    background-image: url(https://images.unsplash.com/photo-1608760000795-547e78bfc003?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NjE3MDgyMTI&ixlib=rb-1.2.1&q=80);
+                  "
+                ></div>
+              </div>
+              <div id="page-shading"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ionicons Script for navbar icons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script>
+      // Global variable to store projects data
+      let projectsData = [];
+
+      // Category mapping for books
+      const categoryMapping = {
+        web: ["Web Development", "Frontend", "Backend", "Full Stack"],
+        data: ["Cloud & DevOps", "Cloud", "DevOps", "Infrastructure"],
+        landscape: [
+          "AI/ML",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Data Science",
+        ],
+        photo: ["Desktop Applications", "Desktop", "Mobile", "Application"],
+        graphic: [
+          "Android Development",
+          "Android",
+          "Mobile Development",
+          "App Development",
+        ],
+        writing: [
+          "Game Development",
+          "Gaming",
+          "Game Design",
+          "Unity",
+          "Unreal",
+        ],
+      };
+
+      // Function to fetch projects from backend
+      async function fetchProjects() {
+        try {
+          const response = await fetch("/api/projects/community", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+
+          if (response.ok) {
+            projectsData = await response.json();
+            console.log("Projects loaded:", projectsData);
+          } else {
+            console.error("Failed to fetch projects");
+            projectsData = [];
+          }
+        } catch (error) {
+          console.error("Error fetching projects:", error);
+          projectsData = [];
+        }
+      }
+
+      // Function to get projects by category
+      function getProjectsByCategory(bookClass) {
+        const categories = categoryMapping[bookClass] || [];
+        return projectsData.filter((project) =>
+          categories.some(
+            (cat) =>
+              project.category &&
+              project.category.toLowerCase().includes(cat.toLowerCase())
+          )
+        );
+      }
+
+      // Function to populate book content with projects
+      function populateBookContent(book, projects) {
+        const contentsDiv = book.querySelector(".contents");
+        const backButton = contentsDiv.querySelector(".back-button");
+
+        // Clear existing content except back button
+        contentsDiv.innerHTML = "";
+        contentsDiv.appendChild(backButton);
+
+        if (projects.length === 0) {
+          // Show "no projects" message
+          const noProjectsPage = document.createElement("div");
+          noProjectsPage.className = "page";
+          noProjectsPage.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <h2 style="color: #666; margin-bottom: 1rem;">No Projects Found</h2>
+                        <p style="color: #888;">No projects available in this category yet.</p>
+                        <p style="color: #888; margin-top: 1rem;">Create your first project to get started!</p>
+                    </div>
+                `;
+          contentsDiv.appendChild(noProjectsPage);
+        } else {
+          // Create pages for each project
+          projects.forEach((project, index) => {
+            const page = document.createElement("div");
+            page.className = "page";
+
+            const createdDate = new Date(
+              project.createdAt
+            ).toLocaleDateString();
+
+            page.innerHTML = `
+                        <div>
+                            <h2 style="margin-bottom: 1rem; color: #333;">${
+                              project.title
+                            }</h2>
+                            <p class="text" style="margin-bottom: 1rem;">${
+                              project.description
+                            }</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                                <span style="color: #666; font-size: 0.9rem;">Created: ${createdDate}</span>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="color: #666; font-size: 0.9rem;">👍 ${
+                                      project.upvotes || 0
+                                    }</span>
+                                    <span style="background: #e3f2fd; color: #1976d2; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">${
+                                      project.category
+                                    }</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+            contentsDiv.appendChild(page);
+          });
+        }
+
+        // Add page shading
+        const pageShading = document.createElement("div");
+        pageShading.id = "page-shading";
+        contentsDiv.appendChild(pageShading);
+      }
+
+      // When any book is clicked, open it and populate with projects
+      document.querySelectorAll(".book-bg").forEach(function (book) {
+        book.addEventListener("click", function () {
+          // First, check if the clicked book is already active. If so, do nothing.
+          if (this.classList.contains("active")) {
+            return;
+          }
+
+          // Close any other book that might be open
+          document
+            .querySelectorAll(".book-bg.active")
+            .forEach(function (openBook) {
+              openBook.classList.remove("active");
+            });
+
+          // Get the book category class
+          const bookClasses = Array.from(this.classList);
+          const categoryClass = bookClasses.find((cls) =>
+            [
+              "web",
+              "data",
+              "landscape",
+              "photo",
+              "graphic",
+              "writing",
+            ].includes(cls)
+          );
+
+          if (categoryClass) {
+            // Get projects for this category
+            const categoryProjects = getProjectsByCategory(categoryClass);
+
+            // Populate the book with project data
+            populateBookContent(this, categoryProjects);
+          }
+
+          // Then, open the clicked book
+          this.classList.add("active");
+        });
+      });
+
+      // When any back button is clicked, close its parent book.
+      document.addEventListener("click", function (event) {
+        if (event.target.closest(".back-button")) {
+          event.stopPropagation();
+          const backButton = event.target.closest(".back-button");
+          backButton.closest(".book-bg").classList.remove("active");
+        }
+      });
+
+      // User Profile Management
+      async function loadUserProfile() {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            window.location.href = "login.html";
+            return;
+          }
+
+          const response = await fetch("/api/users/me", {
+            headers: {
+              "x-auth-token": token,
+            },
+          });
+
+          if (response.ok) {
+            const user = await response.json();
+            document.getElementById("profile-name").textContent =
+              user.name || user.email || "User";
+
+            // Handle profile picture
+            if (user.profilePictureUrl) {
+              const imageUrl = user.profilePictureUrl.startsWith("http")
+                ? user.profilePictureUrl
+                : `${window.location.origin}${user.profilePictureUrl}`;
+              document.getElementById("profile-image").src = imageUrl;
+            } else {
+              // Generate placeholder with user's initial
+              const initial = (user.name || user.email || "U")
+                .charAt(0)
+                .toUpperCase();
+              document.getElementById(
+                "profile-image"
+              ).src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
+            }
+          } else {
+            console.error("Failed to load user profile");
+            if (response.status === 401) {
+              localStorage.removeItem("token");
+              window.location.href = "login.html";
+            }
+          }
+        } catch (error) {
+          console.error("Error loading user profile:", error);
+          localStorage.removeItem("token");
+          window.location.href = "login.html";
+        }
+      }
+
+      // Logout functionality
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+      });
+
+      // My Profile button functionality
+      document
+        .getElementById("my-profile-btn")
+        .addEventListener("click", () => {
+          // You can implement profile modal or redirect to profile page
+          console.log("My Profile clicked");
+        });
+
+      // Profile menu dropdown logic
+      const userProfileEl = document.getElementById("user-profile");
+      const profileMenuEl = document.getElementById("profile-menu");
+      userProfileEl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        profileMenuEl.classList.toggle("show");
+      });
+      window.addEventListener("click", () => {
+        if (profileMenuEl.classList.contains("show")) {
+          profileMenuEl.classList.remove("show");
+        }
+      });
+
+      // Load user profile and projects on page load
+      window.addEventListener("load", async () => {
+        await loadUserProfile();
+        await fetchProjects();
+      });
+    </script>
+  </body>
+</html>

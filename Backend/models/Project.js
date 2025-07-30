@@ -14,6 +14,15 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  // ADD THESE TWO NEW FIELDS
+  category: {
+    type: String,
+    default: 'General'
+  },
+  upvotes: {
+    type: Number,
+    default: 0
+  },
   createdAt: {
     type: Date,
     default: Date.now

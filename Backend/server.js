@@ -9,14 +9,14 @@ const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const path = require('path');
+const multer = require('multer'); // Import multer for file uploads
+require('dotenv').config();
 
 const connectDB = require('./db');
 const User = require('./models/User');
-const auth = require('./middleware/auth'); // Import the auth middleware
+const auth = require('./middleware/auth');
 
-// This is the single source of truth for the JWT secret.
-// It must be identical to the one in middleware/auth.js.
-const JWT_SECRET = 'a_super_secret_jwt_key_that_is_long_and_random';
+const JWT_SECRET = process.env.JWT_SECRET || 'a_super_secret_jwt_key_that_is_long_and_random';
 
 // =================================================================
 // 2. INITIALIZE APP & CONNECT TO DATABASE
@@ -25,16 +25,18 @@ const app = express();
 const port = 3000;
 
 connectDB();
-require('dotenv').config();
+
 // =================================================================
 // 3. SETUP MIDDLEWARE
 // =================================================================
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+// Serve uploaded files statically from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(session({
-  secret: 'a_very_secret_key_for_eduport_session', // This is for sessions, not JWT
+  secret: process.env.SESSION_SECRET || 'a_default_session_secret',
   resave: false,
   saveUninitialized: true,
 }));
@@ -43,7 +45,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // =================================================================
-// 4. CONFIGURE PASSPORT STRATEGIES
+// 4. CONFIGURE MULTER FOR FILE UPLOADS
+// =================================================================
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // The folder where files will be stored
+    },
+    filename: function (req, file, cb) {
+      // Create a unique filename to avoid overwriting existing files
+      cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
+// =================================================================
+// 5. CONFIGURE PASSPORT STRATEGIES
 // =================================================================
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
@@ -56,8 +72,8 @@ passport.deserializeUser(async (id, done) => {
 });
 
 passport.use(new GoogleStrategy({
-     clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET, // Replace with your actual Client Secret
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -91,18 +107,22 @@ passport.use(new GoogleStrategy({
 ));
 
 // =================================================================
-// 5. DEFINE API ROUTES
+// 6. DEFINE API ROUTES
 // =================================================================
 app.use('/api/projects', require('./routes'));
 
 // --- AUTHENTICATION ROUTES ---
 app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ message: 'Email and password are required.' });
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Name, email, and password are required.' });
+  }
   try {
     let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ message: 'Email already exists.' });
-    user = new User({ email, password });
+    if (user) {
+        return res.status(400).json({ message: 'Email already exists.' });
+    }
+    user = new User({ name, email, password });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
@@ -122,7 +142,6 @@ app.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials.' });
         
         const payload = { user: { id: user.id } };
-        // Use the shared secret to create the token
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
         res.json({ token });
     } catch (error) {
@@ -142,6 +161,31 @@ app.get('/api/users/me', auth, async (req, res) => {
     }
 });
 
+// --- UPDATE CURRENT USER'S DETAILS ---
+app.put('/api/users/me', auth, upload.single('profilePicture'), async (req, res) => {
+    const { name } = req.body;
+    const updatedFields = {};
+    if (name) updatedFields.name = name;
+    if (req.file) {
+        // We construct the URL path to the file so the frontend can access it
+        updatedFields.profilePictureUrl = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.user.id,
+            { $set: updatedFields },
+            { new: true }
+        ).select('-password');
+
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+
 // --- GOOGLE AUTH ROUTES ---
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -149,13 +193,12 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login.html', session: false }),
   (req, res) => {
     const payload = { user: { id: req.user.id } };
-    // Use the same shared secret to create the token
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
     res.redirect(`/dashboard.html?token=${token}`);
   });
 
 // =================================================================
-// 6. START THE SERVER
+// 7. START THE SERVER
 // =================================================================
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -3,100 +3,107 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eduport</title>
+    <title>Eduport | Home</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Londrina+Shadow&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Navbar -->
-    <nav id="navbar">
-      <ul class="navbar-items flexbox-col">
-        <li class="navbar-logo flexbox-left">
-          <a class="navbar-item-inner flexbox">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_1"
-              data-name="Layer 1"
-              viewBox="0 0 1438.88 1819.54"
-            >
-              <polygon
-                points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"
-              />
-              <polygon
-                points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"
-              />
-            </svg>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="search-outline"></ion-icon>
-            </div>
-            <span class="link-text">Search</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="home-outline"></ion-icon>
-            </div>
-            <span class="link-text">Home</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="folder-open-outline"></ion-icon>
-            </div>
-            <span class="link-text">Projects</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="pie-chart-outline"></ion-icon>
-            </div>
-            <span class="link-text">Dashboard</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="people-outline"></ion-icon>
-            </div>
-            <span class="link-text">Dev's</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="chatbubbles-outline"></ion-icon>
-            </div>
-            <span class="link-text">Support</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="settings-outline"></ion-icon>
-            </div>
-            <span class="link-text">Settings</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Main -->
-    <main id="main" class="flexbox-col">
-      <h2>Lorem ipsum!</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum corporis,
-        rerum doloremque iste sed voluptates omnis molestias molestiae animi
-        recusandae labore sit amet delectus ad necessitatibus laudantium qui!
-        Magni quisquam illum quaerat necessitatibus sint quibusdam perferend0is!
-        Aut ipsam cumque deleniti error perspiciatis iusto accusamus
-        consequuntur assumenda. Obcaecati minima sed natus?
-      </p>
-    </main>
+    <!-- Navigation menu -->
+    <div class="nav-wrapper">
+      <input
+        class="menu-icon"
+        type="checkbox"
+        id="menu-icon"
+        name="menu-icon"
+      />
+      <label for="menu-icon"></label>
+      <nav class="nav">
+        <ul class="pt-5">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="banner">
+      <div class="slider" style="--quantity: 10">
+        <div class="item" style="--position: 1">
+          <img
+            src="https://cdn.dribbble.com/userupload/44193216/file/original-61069b153b611a0f21f6559c9bb88901.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 2">
+          <img
+            src="https://cdn.dribbble.com/userupload/44250642/file/049f1d2a4685b7681242e611f4c0bf89.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 3">
+          <img src="/Screenshot 2025-07-27 010351.png" alt="" />
+        </div>
+        <div class="item" style="--position: 4">
+          <img
+            src="https://cdn.dribbble.com/userupload/44206916/file/original-daad1c7468dba8f486ac0e696608a816.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 5">
+          <img
+            src="https://cdn.dribbble.com/userupload/44240561/file/da427a34401a843f934011524f2bdb74.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 6">
+          <img
+            src="https://cdn.dribbble.com/userupload/44178740/file/original-07b3d0afe4225c50cc5eed942fe64559.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 7">
+          <img
+            src="https://cdn.dribbble.com/userupload/44241586/file/571d6a88b8e16b9540ebe88213caa849.jpeg?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 8">
+          <img
+            src="https://cdn.dribbble.com/userupload/44190025/file/original-a2a15fe6887cba739af45986ab44fedc.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 9">
+          <img
+            src="https://cdn.dribbble.com/userupload/44208049/file/original-d2d44263c599860dd60dbdaf550214f1.png?resize=1504x1128&vertical=center"
+            alt=""
+          />
+        </div>
+        <div class="item" style="--position: 10">
+          <img
+            src="https://cdn.dribbble.com/userupload/44224362/file/original-b5e27eea2456085a826c7b663f7af72b.jpg?resize=1504x1851&vertical=center"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="content">
+        <h1>EXPLORE NOW</h1>
+        <div class="details"><h2>All portpholios around the collage</h2></div>
+        <div class="model"></div>
+      </div>
+    </div>
   </body>
 </html>
