@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduport | Choose Your Role</title>
+    <link rel="stylesheet" href="role-selection.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Londrina+Shadow&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation menu -->
+    <div class="nav-wrapper">
+        <input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon" />
+        <label for="menu-icon"></label>
+        <nav class="nav">
+            <ul class="pt-5">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="role-selection.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="page-container">
+        <div class="role-selection-container">
+            <div class="header-section">
+                <div class="eduport-logo">
+                    <span class="logo-text">Eduport</span>
+                    <div class="logo-dot"></div>
+                </div>
+                <h1>Choose Your Role</h1>
+                <p class="subtitle">Select how you'd like to access Eduport</p>
+            </div>
+
+            <div class="role-cards">
+                <div class="role-card student-card" onclick="selectRole('student')">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Login as Student</h3>
+                    <p>Create and showcase your projects, build your portfolio, and connect with peers</p>
+                    <div class="card-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Upload projects</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Build portfolio</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>View community projects</span>
+                        </div>
+                    </div>
+                    <button class="role-btn student-btn btn effect04" data-sm-link-text="Continue as Student">
+                        <span>Continue as Student</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="role-card teacher-card" onclick="selectRole('teacher')">
+                    <div class="card-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Login as Teacher</h3>
+                    <p>Evaluate student projects, provide feedback, and discover talented students</p>
+                    <div class="card-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>View all projects</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Upvote projects</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Discover talent</span>
+                        </div>
+                    </div>
+                    <button class="role-btn teacher-btn btn effect04" data-sm-link-text="Continue as Teacher">
+                        <span>Continue as Teacher</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectRole(role) {
+            console.log('Role selected:', role); // Debug log
+            // Store the selected role in sessionStorage
+            sessionStorage.setItem('selectedRole', role);
+            console.log('Role stored in sessionStorage:', sessionStorage.getItem('selectedRole')); // Debug log
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+
+        // Add click animations
+        document.querySelectorAll('.role-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+
+</html>

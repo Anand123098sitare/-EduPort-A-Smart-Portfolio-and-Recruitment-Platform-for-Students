@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
   profilePictureUrl: {
     type: String,
   },
+  role: {
+    type: String,
+    enum: ['student', 'teacher'],
+    default: 'student',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

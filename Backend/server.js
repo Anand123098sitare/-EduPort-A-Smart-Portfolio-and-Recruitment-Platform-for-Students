@@ -32,8 +32,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
-// Serve uploaded files statically from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve uploaded files
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'a_default_session_secret',
@@ -113,7 +113,7 @@ app.use('/api/projects', require('./routes'));
 
 // --- AUTHENTICATION ROUTES ---
 app.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   if (!name || !email || !password) {
       return res.status(400).json({ message: 'Name, email, and password are required.' });
   }
@@ -122,7 +122,12 @@ app.post('/register', async (req, res) => {
     if (user) {
         return res.status(400).json({ message: 'Email already exists.' });
     }
-    user = new User({ name, email, password });
+    user = new User({ 
+      name, 
+      email, 
+      password,
+      role: role && ['student', 'teacher'].includes(role) ? role : 'student'
+    });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
@@ -134,16 +139,22 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: 'Invalid credentials.' });
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials.' });
         
-        const payload = { user: { id: user.id } };
+        // Update user role if provided
+        if (role && ['student', 'teacher'].includes(role)) {
+            user.role = role;
+            await user.save();
+        }
+        
+        const payload = { user: { id: user.id, role: user.role } };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, role: user.role });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');

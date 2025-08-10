@@ -9,9 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Festive&family=Hanalei&family=Londrina+Shadow&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="dashboard.css">
   </head>
   <body>
@@ -79,19 +82,32 @@
 
     <div class="page-wrapper">
       <header class="top-bar">
-        <div class="header-right">
-          <div class="search-bar">
-            <ion-icon name="search"></ion-icon>
-            <input type="text" placeholder="Search..." />
+        <div class="header-left">
+          <div class="welcome-section">
+            <h2 class="welcome-title">Welcome back!</h2>
+            <div class="role-indicator" id="role-indicator">
+              <div class="role-badge">
+                <ion-icon name="person-outline" id="role-icon"></ion-icon>
+                <span id="role-text">Student</span>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="header-right">
           <div class="user-profile" id="user-profile">
+            <div class="profile-info">
+              <span id="profile-name" class="profile-name">Loading...</span>
+              <span class="profile-subtitle">Dashboard</span>
+            </div>
             <img
+              id="user-profile-img"
               src="https://placehold.co/40x40/cccccc/ffffff?text=L"
               alt="User Profile"
+              class="profile-avatar"
             />
             <div class="profile-menu" id="profile-menu">
               <div class="profile-menu-header">
-                <p id="profile-name">Loading...</p>
+                <p id="profile-name-menu">Loading...</p>
               </div>
               <button id="my-profile-btn">My Profile</button>
               <a href="#">Settings</a>
@@ -103,8 +119,8 @@
 
       <main id="main-content">
         <div class="main-content-header">
-            <h1>Overview</h1>
-            <button class="create-project-btn" id="create-project-btn">Create New Project</button>
+            <h1 id="main-title">Community Projects</h1>
+            <button class="create-project-btn" id="create-project-btn" style="display: none;">Create New Project</button>
         </div>
         <section class="project-grid" id="project-grid">
           <!-- Project cards will be dynamically inserted here -->
@@ -120,16 +136,65 @@
             <h2>Create a New Project</h2>
             <form id="project-form">
                 <div class="form-group">
-                    <label for="title">Project Title</label>
-                    <input type="text" id="title" required>
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" name="projectName" required placeholder="Enter your project name">
                 </div>
+                
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" rows="4" required></textarea>
+                    <label for="project-description">Project Description</label>
+                    <textarea id="project-description" name="projectDescription" rows="4" required placeholder="Describe your project, its features, and what makes it unique"></textarea>
                 </div>
+                
+                <div class="form-group">
+                    <label for="tech-used">Tech Used</label>
+                    <select id="tech-used" name="techUsed" required>
+                        <option value="">Select Technology Category</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="android-development">Android Development</option>
+                        <option value="ios-development">iOS Development</option>
+                        <option value="ai-ml">AI/ML</option>
+                        <option value="data-science">Data Science</option>
+                        <option value="blockchain">Blockchain</option>
+                        <option value="game-development">Game Development</option>
+                        <option value="desktop-app">Desktop Application</option>
+                        <option value="devops">DevOps</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                        <option value="iot">IoT (Internet of Things)</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project-url">Project URL (Optional)</label>
+                    <input type="url" id="project-url" placeholder="https://your-project.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="github-url">GitHub Repository (Optional)</label>
+                    <input type="url" id="github-url" placeholder="https://github.com/username/repo">
+                </div>
+                
+                <div class="form-group image-upload-section">
+                    <label for="project-image">Project Image *</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="project-image" accept="image/*" required>
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to upload or drag and drop</p>
+                                <small>PNG, JPG, GIF up to 5MB</small>
+                            </div>
+                        </div>
+                        <div id="image-preview" class="image-preview" style="display: none;">
+                            <img id="preview-image" src="" alt="Project Preview">
+                            <button type="button" id="remove-image" class="btn-remove">Remove Image</button>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="modal-actions">
                     <button type="button" class="create-project-btn cancel-btn" id="cancel-create-btn">Cancel</button>
-                    <button type="submit" class="create-project-btn">Save Project</button>
+                    <button type="submit" class="create-project-btn" id="submit-project-btn" disabled>Save Project</button>
                 </div>
             </form>
         </div>
@@ -165,6 +230,33 @@
       </div>
     
     <script>
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#ff4757' : type === 'success' ? '#2ed573' : '#5352ed'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                z-index: 10000;
+                font-weight: 500;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.style.transform = 'translateX(0)', 10);
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+        
         document.addEventListener('DOMContentLoaded', () => {
             // --- Part 1: Handle Token on Page Load ---
             const urlParams = new URLSearchParams(window.location.search);
@@ -182,7 +274,7 @@
             }
 
             // --- Part 3: Element References ---
-            const userProfileImg = document.querySelector('#user-profile img');
+            const userProfileImg = document.getElementById('user-profile-img');
             const userProfileName = document.getElementById('profile-name');
             const userProfile = document.getElementById('user-profile');
             const profileMenu = document.getElementById('profile-menu');
@@ -208,67 +300,282 @@
                 }
             });
 
+            // --- Role-Based UI Setup ---
+            const userRole = localStorage.getItem('userRole') || 'student';
+            console.log('Current user role:', userRole); // Debug log
+            
+            const roleIndicator = document.getElementById('role-indicator');
+            const roleText = document.getElementById('role-text');
+            const roleIcon = document.getElementById('role-icon');
+            const mainTitle = document.getElementById('main-title');
+            
+            // Function to configure UI based on role
+            function configureUIForRole(role) {
+                console.log('Configuring UI for role:', role); // Debug log
+                
+                if (role === 'teacher') {
+                    // Teacher configuration
+                    if (roleText) roleText.textContent = 'Teacher';
+                    if (roleIcon) roleIcon.name = 'school-outline';
+                    if (roleIndicator) {
+                        roleIndicator.classList.remove('student-role');
+                        roleIndicator.classList.add('teacher-role');
+                    }
+                    if (mainTitle) mainTitle.textContent = 'Student Projects';
+                    
+                    // Hide create project button and modal for teachers
+                    if (createProjectBtn) {
+                        createProjectBtn.style.display = 'none';
+                        createProjectBtn.disabled = true;
+                        console.log('Hidden create project button for teacher');
+                    }
+                    
+                    // Hide the entire create project modal
+                    const createProjectModal = document.getElementById('project-modal');
+                    if (createProjectModal) {
+                        createProjectModal.style.display = 'none';
+                    }
+                    
+                    // Add teacher-specific styling
+                    document.body.classList.add('teacher-mode');
+                    
+                    // Show notification about teacher mode
+                    setTimeout(() => {
+                        showNotification('Welcome Teacher! You can view and evaluate student projects.', 'info');
+                    }, 1500);
+                    
+                } else {
+                    // Student configuration
+                    if (roleText) roleText.textContent = 'Student';
+                    if (roleIcon) roleIcon.name = 'person-outline';
+                    if (roleIndicator) {
+                        roleIndicator.classList.remove('teacher-role');
+                        roleIndicator.classList.add('student-role');
+                    }
+                    if (mainTitle) mainTitle.textContent = 'My Projects';
+                    
+                    // Show create project button for students
+                    if (createProjectBtn) {
+                        createProjectBtn.style.display = 'block';
+                        createProjectBtn.disabled = false;
+                        console.log('Shown create project button for student');
+                    }
+                    
+                    // Add student-specific styling
+                    document.body.classList.add('student-mode');
+                    
+                    // Show notification about student mode
+                    setTimeout(() => {
+                        showNotification('Welcome Student! Create and manage your projects.', 'success');
+                    }, 1500);
+                }
+            }
+            
+            // Configure UI immediately
+            configureUIForRole(userRole);
+            
             // --- Logout Logic ---
             logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('token');
-                window.location.href = 'login.html';
+                localStorage.removeItem('userRole');
+                window.location.href = 'role-selection.html';
             });
             
             // --- API Call to Fetch User Profile Data ---
             const loadUserProfile = async () => {
                 try {
+                    console.log('Loading user profile...'); // Debug log
                     const res = await fetch('http://localhost:3000/api/users/me', {
                         headers: { 'x-auth-token': token }
                     });
-                    if (!res.ok) throw new Error('Could not fetch user profile.');
+                    if (!res.ok) throw new Error(`Could not fetch user profile. Status: ${res.status}`);
                     
                     const user = await res.json();
+                    console.log('User profile data:', user); // Debug log
+                    
+                    // Check if profile image element exists
+                    if (!userProfileImg) {
+                        console.error('Profile image element not found!');
+                        return;
+                    }
                     
                     if (user.profilePictureUrl) {
                         const imageUrl = user.profilePictureUrl.startsWith('http') ? user.profilePictureUrl : `http://localhost:3000${user.profilePictureUrl}`;
+                        console.log('Setting profile image URL:', imageUrl); // Debug log
                         userProfileImg.src = imageUrl;
+                        
+                        // Add error handling for image loading
+                        userProfileImg.onerror = () => {
+                            console.warn('Failed to load profile image, using fallback');
+                            const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                            userProfileImg.src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
+                        };
                     } else {
                         const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                        console.log('No profile picture URL, using initial:', initial); // Debug log
                         userProfileImg.src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
                     }
                     
-                    userProfileName.textContent = user.name || user.email;
+                    // Update profile name
+                    if (userProfileName) {
+                        userProfileName.textContent = user.name || user.email;
+                        console.log('Updated profile name:', user.name || user.email); // Debug log
+                    }
 
-                    document.getElementById('profile-name-input').value = user.name || '';
-                    document.getElementById('profile-picture-preview').src = userProfileImg.src;
+                    // Update profile form fields if they exist
+                    const profileNameInput = document.getElementById('profile-name-input');
+                    const profilePicturePreview = document.getElementById('profile-picture-preview');
+                    
+                    if (profileNameInput) {
+                        profileNameInput.value = user.name || '';
+                    }
+                    if (profilePicturePreview) {
+                        profilePicturePreview.src = userProfileImg.src;
+                    }
+
+                    console.log('Profile loaded successfully!'); // Debug log
 
                 } catch (error) {
-                    console.error(error);
-                    localStorage.removeItem('token');
-                    window.location.href = 'login.html';
+                    console.error('Error loading user profile:', error);
+                    // Don't redirect immediately, just show error
+                    showNotification('Failed to load profile. Please refresh the page.', 'error');
                 }
             };
 
             // --- API Call to Fetch and Display Projects ---
-            const fetchAndDisplayProjects = async () => {
+            const loadProjects = async () => {
                 try {
-                    const res = await fetch('http://localhost:3000/api/projects', {
+                    // Teachers see all projects, students see only their own
+                    const endpoint = userRole === 'teacher' 
+                        ? 'http://localhost:3000/api/projects/all'
+                        : 'http://localhost:3000/api/projects';
+                    
+                    const res = await fetch(endpoint, {
                         headers: { 'x-auth-token': token }
                     });
-                    if (!res.ok) throw new Error('Failed to fetch projects');
-
+                    
+                    if (!res.ok) {
+                        throw new Error(`Failed to fetch projects: ${res.status}`);
+                    }
+                    
                     const projects = await res.json();
                     projectGrid.innerHTML = '';
-                    
+
                     if (projects.length === 0) {
-                        projectGrid.innerHTML = '<p style="color: var(--text-secondary);">You have not created any projects yet. Click "Create New Project" to get started!</p>';
+                        const emptyMessage = userRole === 'teacher' 
+                            ? 'No student projects found. Students will see their projects here once they create them.'
+                            : 'You have not created any projects yet. Click "Create New Project" to get started!';
+                        projectGrid.innerHTML = `<p style="color: var(--text-secondary);">${emptyMessage}</p>`;
                     } else {
                         projects.forEach(project => {
                             const card = document.createElement('div');
                             card.className = 'project-card';
+                            
+                            // Use enhanced project fields or fall back to legacy fields
+                            const projectName = project.projectName || project.title || 'Untitled Project';
+                            const projectDescription = project.projectDescription || project.description || 'No description available';
+                            const techUsed = project.techUsed || 'other';
+                            const screenshotUrl = project.screenshotUrl || `https://placehold.co/600x400/667eea/ffffff?text=${encodeURIComponent(projectName)}`;
+                            const projectUrl = project.projectUrl || '#';
+                            const githubUrl = project.githubUrl || '';
+                            
+                            // Get tech display name
+                            const techDisplayName = getTechDisplayName(techUsed);
+                            
                             card.innerHTML = `
-                                <img class="project-card-image" src="https://placehold.co/600x400/e9ebee/333333?text=Project" alt="${project.title}">
+                                <div class="project-card-image-container">
+                                    <img class="project-card-image" src="${screenshotUrl}" alt="${projectName}" onerror="this.src='https://placehold.co/600x400/667eea/ffffff?text=Project+Screenshot'">
+                                    <div class="project-card-overlay">
+                                        <div class="project-card-actions">
+                                            ${projectUrl !== '#' ? `<a href="${projectUrl}" target="_blank" class="btn-view-project" title="View Project"><i class="fas fa-external-link-alt"></i></a>` : ''}
+                                            ${githubUrl ? `<a href="${githubUrl}" target="_blank" class="btn-github" title="View Code"><i class="fab fa-github"></i></a>` : ''}
+                                            ${userRole === 'teacher' ? `<button class="btn-upvote" data-project-id="${project._id}" title="Upvote Project"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</button>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="project-card-content">
-                                    <h3>${project.title}</h3>
-                                    <p>${project.description.substring(0, 100)}...</p>
+                                    <div class="project-card-header">
+                                        <h3>${projectName}</h3>
+                                        <span class="tech-badge tech-${techUsed}">${techDisplayName}</span>
+                                    </div>
+                                    <p class="project-description">${projectDescription.length > 120 ? projectDescription.substring(0, 120) + '...' : projectDescription}</p>
+                                    ${project.user && project.user.name ? `<div class="project-author">by ${project.user.name}</div>` : ''}
+                                    <div class="project-stats">
+                                        <span class="stat-item"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</span>
+                                        <span class="stat-item"><i class="fas fa-calendar"></i> ${new Date(project.createdAt).toLocaleDateString()}</span>
+                                    </div>
                                 </div>
                             `;
                             projectGrid.appendChild(card);
+                        });
+                        
+                        // Add upvote functionality for teachers
+                        if (userRole === 'teacher') {
+                            addUpvoteFunctionality();
+                        }
+                    }
+                    
+                    // Helper function to get tech display name (frontend version)
+                    function getTechDisplayName(techCode) {
+                        const techMap = {
+                            'web-development': 'Web Development',
+                            'android-development': 'Android Development',
+                            'ios-development': 'iOS Development',
+                            'ai-ml': 'AI/ML',
+                            'data-science': 'Data Science',
+                            'blockchain': 'Blockchain',
+                            'game-development': 'Game Development',
+                            'desktop-app': 'Desktop Application',
+                            'devops': 'DevOps',
+                            'cybersecurity': 'Cybersecurity',
+                            'iot': 'IoT',
+                            'other': 'Other'
+                        };
+                        return techMap[techCode] || 'General';
+                    }
+                    
+                    // Add upvote functionality for teachers
+                    function addUpvoteFunctionality() {
+                        const upvoteButtons = document.querySelectorAll('.btn-upvote');
+                        upvoteButtons.forEach(button => {
+                            button.addEventListener('click', async (e) => {
+                                e.preventDefault();
+                                const projectId = button.getAttribute('data-project-id');
+                                
+                                if (!projectId) return;
+                                
+                                button.disabled = true;
+                                const originalContent = button.innerHTML;
+                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Voting...';
+                                
+                                try {
+                                    const res = await fetch(`http://localhost:3000/api/projects/${projectId}/upvote`, {
+                                        method: 'POST',
+                                        headers: { 'x-auth-token': token }
+                                    });
+                                    
+                                    if (!res.ok) {
+                                        const errorData = await res.json();
+                                        throw new Error(errorData.message || 'Failed to upvote project');
+                                    }
+                                    
+                                    const updatedProject = await res.json();
+                                    button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes}`;
+                                    
+                                    // Update the stats display as well
+                                    const statsUpvote = button.closest('.project-card').querySelector('.stat-item i.fa-thumbs-up').parentElement;
+                                    statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes}`;
+                                    
+                                    showNotification('Project upvoted successfully!', 'success');
+                                    
+                                } catch (error) {
+                                    console.error('Upvote error:', error);
+                                    button.innerHTML = originalContent;
+                                    showNotification(`Error: ${error.message}`, 'error');
+                                } finally {
+                                    button.disabled = false;
+                                }
+                            });
                         });
                     }
                 } catch (err) {
@@ -281,55 +588,281 @@
             const openModal = (modal) => modal.classList.add('show');
             const closeModal = (modal) => modal.classList.remove('show');
 
-            createProjectBtn.addEventListener('click', () => openModal(createProjectModal));
-            myProfileBtn.addEventListener('click', () => openModal(profileModal));
+            // Only add create project event listener for students
+            if (createProjectBtn) {
+                if (userRole === 'student') {
+                    createProjectBtn.addEventListener('click', () => openModal(createProjectModal));
+                } else {
+                    // For teachers, disable the button completely
+                    createProjectBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showNotification('Teachers cannot create projects. You can only view and evaluate student projects.', 'info');
+                    });
+                }
+            }
+            
+            if (myProfileBtn) {
+                myProfileBtn.addEventListener('click', () => openModal(profileModal));
+            }
 
-            document.getElementById('project-modal-close').addEventListener('click', () => closeModal(createProjectModal));
-            document.getElementById('cancel-create-btn').addEventListener('click', () => closeModal(createProjectModal));
+            const projectModalClose = document.getElementById('project-modal-close');
+            if (projectModalClose) {
+                projectModalClose.addEventListener('click', () => closeModal(createProjectModal));
+            }
+            
+            const cancelCreateBtn = document.getElementById('cancel-create-btn');
+            if (cancelCreateBtn) {
+                cancelCreateBtn.addEventListener('click', () => closeModal(createProjectModal));
+            }
 
-            document.getElementById('profile-modal-close').addEventListener('click', () => closeModal(profileModal));
-            document.getElementById('cancel-profile-btn').addEventListener('click', () => closeModal(profileModal));
+            const profileModalClose = document.getElementById('profile-modal-close');
+            if (profileModalClose) {
+                profileModalClose.addEventListener('click', () => closeModal(profileModal));
+            }
+            
+            const cancelProfileBtn = document.getElementById('cancel-profile-btn');
+            if (cancelProfileBtn) {
+                cancelProfileBtn.addEventListener('click', () => closeModal(profileModal));
+            }
 
-            // --- Handle Create Project Form Submission ---
-            document.getElementById('project-form').addEventListener('submit', async (e) => {
+            // --- Image Upload Variables ---
+            const projectImageInput = document.getElementById('project-image');
+            const uploadArea = document.getElementById('upload-area');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImage = document.getElementById('preview-image');
+            const removeImageBtn = document.getElementById('remove-image');
+            const submitProjectBtn = document.getElementById('submit-project-btn');
+            let selectedImageFile = null;
+            
+            // Handle file input change
+            if (projectImageInput) {
+                projectImageInput.addEventListener('change', handleImageSelect);
+            }
+            
+            // Handle drag and drop
+            if (uploadArea) {
+                uploadArea.addEventListener('click', () => projectImageInput.click());
+                
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('drag-over');
+                });
+                
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('drag-over');
+                });
+                
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('drag-over');
+                    
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        const file = files[0];
+                        if (file.type.startsWith('image/')) {
+                            projectImageInput.files = files;
+                            handleImageSelect({ target: { files: [file] } });
+                        } else {
+                            showNotification('Please select an image file.', 'error');
+                        }
+                    }
+                });
+            }
+            
+            function handleImageSelect(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    showNotification('Please select an image file.', 'error');
+                    return;
+                }
+                
+                // Validate file size (5MB limit)
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                if (file.size > maxSize) {
+                    showNotification('Image size must be less than 5MB.', 'error');
+                    return;
+                }
+                
+                selectedImageFile = file;
+                
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewImage.src = e.target.result;
+                    uploadArea.style.display = 'none';
+                    imagePreview.style.display = 'block';
+                    
+                    // Enable submit button
+                    if (typeof validateForm === 'function') validateForm();
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Handle remove image
+            if (removeImageBtn) {
+                removeImageBtn.addEventListener('click', () => {
+                    selectedImageFile = null;
+                    projectImageInput.value = '';
+                    uploadArea.style.display = 'block';
+                    imagePreview.style.display = 'none';
+                    
+                    // Update submit button state
+                    if (typeof validateForm === 'function') validateForm();
+                });
+            }
+            
+            const createProjectForm = document.getElementById('project-form');
+            if (createProjectForm) {
+                const requiredFields = {
+                    name: document.getElementById('project-name'),
+                    description: document.getElementById('project-description'),
+                    tech: document.getElementById('tech-used'),
+                    image: document.getElementById('project-image')
+                };
+
+                const validateForm = () => {
+                    // Check if all required field elements exist
+                    if (!requiredFields.name || !requiredFields.description || !requiredFields.tech || !requiredFields.image) {
+                        console.error('Some required form fields are missing');
+                        return;
+                    }
+
+                    const isNameValid = requiredFields.name.value.trim() !== '';
+                    const isDescriptionValid = requiredFields.description.value.trim() !== '';
+                    const isTechValid = requiredFields.tech.value.trim() !== '' && requiredFields.tech.value !== '';
+                    const isImageValid = requiredFields.image.files.length > 0;
+
+                    const isFormValid = isNameValid && isDescriptionValid && isTechValid && isImageValid;
+                    
+                    console.log('Form validation:', {
+                        isNameValid,
+                        isDescriptionValid, 
+                        isTechValid,
+                        isImageValid,
+                        isFormValid
+                    });
+                    
+                    submitProjectBtn.disabled = !isFormValid;
+                };
+
+                // Add event listeners to all required fields
+                for (const key in requiredFields) {
+                    if (requiredFields.hasOwnProperty(key) && requiredFields[key]) {
+                        if (key === 'image') {
+                            requiredFields[key].addEventListener('change', validateForm);
+                        } else {
+                            requiredFields[key].addEventListener('input', validateForm);
+                        }
+                    }
+                }
+
+                validateForm(); // Initial check
+            }
+
+            // --- Enhanced Project Form Submission ---
+            if (createProjectForm) {
+                createProjectForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const title = document.getElementById('title').value;
-                const description = document.getElementById('description').value;
+                
+                const projectName = document.getElementById('project-name').value.trim();
+                const projectDescription = document.getElementById('project-description').value.trim();
+                const techUsed = document.getElementById('tech-used').value;
+                const projectUrl = document.getElementById('project-url').value.trim();
+                const githubUrl = document.getElementById('github-url').value.trim();
+                
+                if (!projectName || !projectDescription || !techUsed) {
+                    showNotification('Please fill in all required fields.', 'error');
+                    return;
+                }
+                
+                if (!selectedImageFile) {
+                    showNotification('Please select a project image.', 'error');
+                    return;
+                }
+                
                 try {
+                    submitProjectBtn.disabled = true;
+                    submitProjectBtn.textContent = 'Creating Project...';
+                    
+                    // Create FormData for file upload
+                    const formData = new FormData();
+                    formData.append('projectName', projectName);
+                    formData.append('projectDescription', projectDescription);
+                    formData.append('techUsed', techUsed);
+                    formData.append('projectUrl', projectUrl);
+                    formData.append('githubUrl', githubUrl);
+                    formData.append('projectImage', selectedImageFile);
+                    
                     const res = await fetch('http://localhost:3000/api/projects', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
-                        body: JSON.stringify({ title, description })
+                        headers: {
+                            'x-auth-token': token
+                        },
+                        body: formData
                     });
-                    if (!res.ok) throw new Error('Failed to create project');
+                    
+                    if (!res.ok) {
+                        const errorData = await res.json();
+                        throw new Error(errorData.message || 'Failed to create project');
+                    }
+                    
+                    const newProject = await res.json();
+                    console.log('Project created:', newProject);
+                    
+                    // Reset form
+                    if (createProjectForm) {
+                        createProjectForm.reset();
+                    }
+                    selectedImageFile = null;
+                    uploadArea.style.display = 'block';
+                    imagePreview.style.display = 'none';
+                    submitProjectBtn.disabled = true;
+                    
                     closeModal(createProjectModal);
-                    e.target.reset();
-                    fetchAndDisplayProjects();
+                    showNotification('Project created successfully!', 'success');
+                    
+                    // Refresh projects
+                    loadProjects();
+                    
                 } catch (err) {
-                    console.error(err);
-                    alert('Error creating project.');
+                    console.error('Project creation error:', err);
+                    showNotification(`Error creating project: ${err.message}`, 'error');
+                } finally {
+                    if (submitProjectBtn) {
+                        submitProjectBtn.disabled = false;
+                        submitProjectBtn.textContent = 'Create Project';
+                    }
                 }
             });
+            }
 
             // --- Handle Profile Update ---
             const profilePictureInput = document.getElementById('profile-picture-input');
             const profilePicturePreview = document.getElementById('profile-picture-preview');
 
-            profilePictureInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        profilePicturePreview.src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+            if (profilePictureInput && profilePicturePreview) {
+                profilePictureInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            profilePicturePreview.src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
 
-            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            const profileForm = document.getElementById('profile-form');
+            if (profileForm) {
+                profileForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const name = document.getElementById('profile-name-input').value;
-                const file = profilePictureInput.files[0];
+                const profileNameInput = document.getElementById('profile-name-input');
+                const name = profileNameInput ? profileNameInput.value : '';
+                const file = profilePictureInput ? profilePictureInput.files[0] : null;
                 
                 const formData = new FormData();
                 formData.append('name', name);
@@ -357,11 +890,41 @@
                     alert(`Error updating profile: ${err.message}`);
                 }
             });
+            }
+
+            // --- Add missing addUpvoteFunctionality function ---
+            function addUpvoteFunctionality() {
+                const upvoteButtons = document.querySelectorAll('.btn-upvote');
+                upvoteButtons.forEach(button => {
+                    button.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        const projectId = button.getAttribute('data-project-id');
+                        
+                        try {
+                            const res = await fetch(`http://localhost:3000/api/projects/${projectId}/upvote`, {
+                                method: 'POST',
+                                headers: { 'x-auth-token': token }
+                            });
+                            
+                            if (res.ok) {
+                                const result = await res.json();
+                                button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${result.upvotes}`;
+                                showNotification('Project upvoted!', 'success');
+                            } else {
+                                showNotification('Failed to upvote project.', 'error');
+                            }
+                        } catch (error) {
+                            console.error('Error upvoting project:', error);
+                            showNotification('Error upvoting project.', 'error');
+                        }
+                    });
+                });
+            }
 
             // --- Initial Load ---
             Promise.all([
                 loadUserProfile(),
-                fetchAndDisplayProjects()
+                loadProjects()
             ]);
         });
     </script>

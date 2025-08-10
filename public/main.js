@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const selectedRole = sessionStorage.getItem('selectedRole') || 'student';
             const loginBtn = this.querySelector('button[type="submit"]');
             const buttonInner = loginBtn.querySelector('span');
 
@@ -70,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({
                         email,
-                        password
+                        password,
+                        role: selectedRole
                     }),
                 });
 
@@ -78,9 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
 
                 if (response.ok) {
+                    console.log('Login response data:', data); // Debug log
                     showNotification('Login successful!', 'success');
-                    // Save the token to the browser's local storage
+                    
+                    // Save the token and role to the browser's local storage
                     localStorage.setItem('token', data.token);
+                    localStorage.setItem('userRole', data.role || selectedRole);
+                    
+                    console.log('Stored role in localStorage:', localStorage.getItem('userRole')); // Debug log
+                    console.log('Selected role was:', selectedRole); // Debug log
+                    
+                    // Clear the selected role from session storage
+                    sessionStorage.removeItem('selectedRole');
                     
                     // **FIX:** Redirect to the dashboard page after a short delay
                     setTimeout(() => {
