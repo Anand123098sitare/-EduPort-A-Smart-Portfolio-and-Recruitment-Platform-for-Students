@@ -81,21 +81,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (response.ok) {
                     console.log('Login response data:', data); // Debug log
-                    showNotification('Login successful!', 'success');
+                    showNotification(data.message || 'Login successful!', 'success');
                     
-                    // Save the token and role to the browser's local storage
+                    // Save the token and role from backend response
                     localStorage.setItem('token', data.token);
-                    localStorage.setItem('userRole', data.role || selectedRole);
+                    localStorage.setItem('userRole', data.role); // Use backend role, not selected role
                     
-                    console.log('Stored role in localStorage:', localStorage.getItem('userRole')); // Debug log
+                    console.log('Backend returned role:', data.role); // Debug log
                     console.log('Selected role was:', selectedRole); // Debug log
+                    console.log('Final role stored:', data.role); // Debug log
+                    console.log('Redirecting to:', data.redirectTo); // Debug log
                     
                     // Clear the selected role from session storage
                     sessionStorage.removeItem('selectedRole');
                     
-                    // **FIX:** Redirect to the dashboard page after a short delay
+                    // CRITICAL FIX: Redirect to role-specific dashboard
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        if (data.redirectTo) {
+                            window.location.href = data.redirectTo;
+                        } else {
+                            // Fallback redirect based on role
+                            const dashboardUrl = data.role === 'teacher' ? 'teacher-dashboard.html' : 'student-dashboard.html';
+                            window.location.href = dashboardUrl;
+                        }
                     }, 1000); // 1 second delay to allow user to see success message
 
                 } else {

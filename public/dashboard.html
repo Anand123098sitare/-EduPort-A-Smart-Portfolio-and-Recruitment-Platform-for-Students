@@ -15,219 +15,203 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- GSAP for smooth animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="dashboard.css">
   </head>
   <body>
-    <nav id="navbar">
-      <ul class="navbar-items flexbox-col">
-        <li class="navbar-logo flexbox-left">
-          <a class="navbar-item-inner flexbox">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_1"
-              data-name="Layer 1"
-              viewBox="0 0 1438.88 1819.54"
-            >
-              <polygon
-                points="925.79 318.48 830.56 0 183.51 1384.12 510.41 1178.46 925.79 318.48"
-              />
-              <polygon
-                points="1438.88 1663.28 1126.35 948.08 111.98 1586.26 0 1819.54 1020.91 1250.57 1123.78 1471.02 783.64 1663.28 1438.88 1663.28"
-              />
+    <div class="dashboard-container">
+      <!-- Sidebar Navigation -->
+      <nav class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l2 2 4-4"/>
             </svg>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left" href="index.html">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="home-outline"></ion-icon>
-            </div>
-            <span class="link-text">Home</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left" href="projects.html">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="folder-open-outline"></ion-icon>
-            </div>
-            <span class="link-text">Projects</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left" href="dashboard.html">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="pie-chart-outline"></ion-icon>
-            </div>
-            <span class="link-text">Dashboard</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="people-outline"></ion-icon>
-            </div>
-            <span class="link-text">Dev's</span>
-          </a>
-        </li>
-        <li class="navbar-item flexbox-left">
-          <a class="navbar-item-inner flexbox-left">
-            <div class="navbar-item-inner-icon-wrapper flexbox">
-              <ion-icon name="chatbubbles-outline"></ion-icon>
-            </div>
-            <span class="link-text">Support</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="page-wrapper">
-      <header class="top-bar">
-        <div class="header-left">
-          <div class="welcome-section">
-            <h2 class="welcome-title">Welcome back!</h2>
-            <div class="role-indicator" id="role-indicator">
-              <div class="role-badge">
-                <ion-icon name="person-outline" id="role-icon"></ion-icon>
-                <span id="role-text">Student</span>
-              </div>
-            </div>
+          </div>
+          <span class="logo-text">Donezo</span>
+        </div>
+      </div>
+      
+      <div class="sidebar-menu">
+        <div class="menu-section">
+          <ul class="menu-items">
+            <li class="menu-item">
+              <a href="index.html" class="menu-link">
+                <ion-icon name="home-outline"></ion-icon>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="projects.html" class="menu-link">
+                <ion-icon name="folder-open-outline"></ion-icon>
+                <span>Projects</span>
+              </a>
+            </li>
+            <li class="menu-item active">
+              <a href="dashboard.html" class="menu-link">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <ion-icon name="people-outline"></ion-icon>
+                <span>Dev's</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <ion-icon name="chatbubbles-outline"></ion-icon>
+                <span>Support</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="sidebar-footer">
+        <div class="app-download">
+          <div class="download-icon">
+            <ion-icon name="phone-portrait-outline"></ion-icon>
+          </div>
+          <div class="download-content">
+            <h4>Download our Mobile App</h4>
+            <p>Get easy access on mobile app</p>
+            <button class="download-btn">Download</button>
           </div>
         </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <div class="search-bar">
+            <ion-icon name="search-outline" class="search-icon"></ion-icon>
+            <input type="text" placeholder="Search projects..." class="search-input">
+          </div>
+        </div>
+        
         <div class="header-right">
+          <div class="header-actions">
+            <button class="action-btn">
+              <ion-icon name="mail-outline"></ion-icon>
+            </button>
+            <button class="action-btn">
+              <ion-icon name="notifications-outline"></ion-icon>
+              <span class="notification-badge"></span>
+            </button>
+          </div>
+          
           <div class="user-profile" id="user-profile">
             <div class="profile-info">
-              <span id="profile-name" class="profile-name">Loading...</span>
-              <span class="profile-subtitle">Dashboard</span>
+              <span class="profile-name" id="profile-name">Loading...</span>
+              <span class="profile-email" id="profile-email">Loading...</span>
             </div>
-            <img
-              id="user-profile-img"
-              src="https://placehold.co/40x40/cccccc/ffffff?text=L"
-              alt="User Profile"
-              class="profile-avatar"
-            />
-            <div class="profile-menu" id="profile-menu">
-              <div class="profile-menu-header">
-                <p id="profile-name-menu">Loading...</p>
-              </div>
-              <button id="my-profile-btn">My Profile</button>
-              <a href="#">Settings</a>
-              <button class="logout-btn" id="logout-btn">Logout</button>
+            <a href="profile.html" class="profile-avatar-link">
+              <img src="https://placehold.co/40x40/10b981/ffffff?text=U" alt="Profile" class="profile-avatar" id="profile-avatar">
+            </a>
+            <div class="profile-dropdown" id="profile-dropdown">
+              <a href="profile.html" class="dropdown-item" id="my-profile-btn">
+                <ion-icon name="person-outline"></ion-icon>
+                <span>My Profile</span>
+              </a>
+              <button class="dropdown-item logout-btn" id="logout-btn">
+                <ion-icon name="log-out-outline"></ion-icon>
+                <span>Logout</span>
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main id="main-content">
-        <div class="main-content-header">
-            <h1 id="main-title">Community Projects</h1>
-            <button class="create-project-btn" id="create-project-btn" style="display: none;">Create New Project</button>
+      <!-- Dashboard Content -->
+      <main class="dashboard-content">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="header-content">
+            <h1>Dashboard</h1>
+            <p>Plan, prioritize, and accomplish your tasks with ease.</p>
+          </div>
+          <div class="header-actions">
+            <a href="create-project.html" class="btn btn-primary" id="add-project-btn">
+              <ion-icon name="add-outline"></ion-icon>
+              Add Project
+            </a>
+          </div>
         </div>
-        <section class="project-grid" id="project-grid">
-          <!-- Project cards will be dynamically inserted here -->
-        </section>
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card primary">
+            <div class="stat-content">
+              <div class="stat-number">24</div>
+              <div class="stat-label">Total Projects</div>
+              <div class="stat-change">↗ Increased from last month</div>
+            </div>
+            <div class="stat-icon">
+              <ion-icon name="trending-up-outline"></ion-icon>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-content">
+              <div class="stat-number">10</div>
+              <div class="stat-label">Ended Projects</div>
+              <div class="stat-change">↗ Increased from last month</div>
+            </div>
+            <div class="stat-icon">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-content">
+              <div class="stat-number">12</div>
+              <div class="stat-label">Running Projects</div>
+              <div class="stat-change">↗ Decreased from last month</div>
+            </div>
+            <div class="stat-icon">
+              <ion-icon name="play-circle-outline"></ion-icon>
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-content">
+              <div class="stat-number">2</div>
+              <div class="stat-label">Pending Project</div>
+              <div class="stat-change">On Previous</div>
+            </div>
+            <div class="stat-icon">
+              <ion-icon name="time-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="projects-section">
+          <div class="projects-header">
+            <h2 id="projects-title">My Projects</h2>
+            <p class="projects-subtitle">Manage and showcase your portfolio projects</p>
+          </div>
+          
+          <!-- Main Project Grid - Now Visible and Prominent -->
+          <section class="project-grid" id="project-grid">
+            <!-- Project cards will be dynamically inserted here -->
+          </section>
+        </div>
       </main>
     </div>
 
-    <!-- Create Project Modal -->
-    <div id="project-modal" class="modal">
-      <div class="modal-content">
-        <button class="modal-close" id="project-modal-close">&times;</button>
-        <div class="modal-body">
-            <h2>Create a New Project</h2>
-            <form id="project-form">
-                <div class="form-group">
-                    <label for="project-name">Project Name</label>
-                    <input type="text" id="project-name" name="projectName" required placeholder="Enter your project name">
-                </div>
-                
-                <div class="form-group">
-                    <label for="project-description">Project Description</label>
-                    <textarea id="project-description" name="projectDescription" rows="4" required placeholder="Describe your project, its features, and what makes it unique"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="tech-used">Tech Used</label>
-                    <select id="tech-used" name="techUsed" required>
-                        <option value="">Select Technology Category</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="android-development">Android Development</option>
-                        <option value="ios-development">iOS Development</option>
-                        <option value="ai-ml">AI/ML</option>
-                        <option value="data-science">Data Science</option>
-                        <option value="blockchain">Blockchain</option>
-                        <option value="game-development">Game Development</option>
-                        <option value="desktop-app">Desktop Application</option>
-                        <option value="devops">DevOps</option>
-                        <option value="cybersecurity">Cybersecurity</option>
-                        <option value="iot">IoT (Internet of Things)</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="project-url">Project URL (Optional)</label>
-                    <input type="url" id="project-url" placeholder="https://your-project.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="github-url">GitHub Repository (Optional)</label>
-                    <input type="url" id="github-url" placeholder="https://github.com/username/repo">
-                </div>
-                
-                <div class="form-group image-upload-section">
-                    <label for="project-image">Project Image *</label>
-                    <div class="image-upload-container">
-                        <input type="file" id="project-image" accept="image/*" required>
-                        <div class="upload-area" id="upload-area">
-                            <div class="upload-content">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                <p>Click to upload or drag and drop</p>
-                                <small>PNG, JPG, GIF up to 5MB</small>
-                            </div>
-                        </div>
-                        <div id="image-preview" class="image-preview" style="display: none;">
-                            <img id="preview-image" src="" alt="Project Preview">
-                            <button type="button" id="remove-image" class="btn-remove">Remove Image</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="create-project-btn cancel-btn" id="cancel-create-btn">Cancel</button>
-                    <button type="submit" class="create-project-btn" id="submit-project-btn" disabled>Save Project</button>
-                </div>
-            </form>
-        </div>
-      </div>
-    </div>
 
-    <!-- My Profile Modal -->
-    <div id="profile-modal" class="modal">
-        <div class="modal-content">
-          <button class="modal-close" id="profile-modal-close">&times;</button>
-          <div class="modal-body">
-              <h2>My Profile</h2>
-              <form id="profile-form">
-                  <div class="profile-picture-upload">
-                      <img src="https://placehold.co/80x80/cccccc/ffffff?text=P" alt="Profile Preview" class="profile-picture-preview" id="profile-picture-preview">
-                      <div>
-                          <label for="profile-picture-input">Upload Photo</label>
-                          <input type="file" id="profile-picture-input" accept="image/png, image/jpeg">
-                          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">PNG or JPG, max 2MB.</p>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="profile-name-input">Full Name</label>
-                      <input type="text" id="profile-name-input" required>
-                  </div>
-                  <div class="modal-actions">
-                      <button type="button" class="create-project-btn cancel-btn" id="cancel-profile-btn">Cancel</button>
-                      <button type="submit" class="create-project-btn">Save Changes</button>
-                  </div>
-              </form>
-          </div>
-        </div>
-      </div>
+
+
     
     <script>
         // Notification function
@@ -277,32 +261,49 @@
             const userProfileImg = document.getElementById('user-profile-img');
             const userProfileName = document.getElementById('profile-name');
             const userProfile = document.getElementById('user-profile');
-            const profileMenu = document.getElementById('profile-menu');
+            const profileDropdown = document.getElementById('profile-dropdown');
             const logoutBtn = document.getElementById('logout-btn');
             const projectGrid = document.getElementById('project-grid');
             
             // Modals
             const createProjectModal = document.getElementById('project-modal');
-            const profileModal = document.getElementById('profile-modal');
             
             // Buttons
             const myProfileBtn = document.getElementById('my-profile-btn');
             const createProjectBtn = document.getElementById('create-project-btn');
             
-            // --- Profile Menu Dropdown Logic ---
-            userProfile.addEventListener('click', (e) => {
-                e.stopPropagation();
-                profileMenu.classList.toggle('show');
-            });
-            window.addEventListener('click', () => {
-                if (profileMenu.classList.contains('show')) {
-                    profileMenu.classList.remove('show');
-                }
-            });
+            // --- Profile Menu Dropdown Logic (with null checks) ---
+            if (userProfile && profileDropdown) {
+                userProfile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    userProfile.classList.toggle('active');
+                });
+                
+                window.addEventListener('click', () => {
+                    if (userProfile && userProfile.classList.contains('active')) {
+                        userProfile.classList.remove('active');
+                    }
+                });
+                
+                // Prevent dropdown from closing when clicking inside it
+                profileDropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
 
-            // --- Role-Based UI Setup ---
-            const userRole = localStorage.getItem('userRole') || 'student';
-            console.log('Current user role:', userRole); // Debug log
+            // --- EMERGENCY ROLE FIX ---
+            // FORCE STUDENT ROLE UNTIL THE BUG IS COMPLETELY RESOLVED
+            let userRole = 'student';
+            localStorage.setItem('userRole', 'student');
+            sessionStorage.setItem('selectedRole', 'student');
+            
+            console.log('EMERGENCY FIX: FORCING STUDENT ROLE');
+            console.log('Role has been hardcoded to student to fix the bug');
+            
+            // Show emergency notification
+            setTimeout(() => {
+                showNotification('EMERGENCY FIX: You are now in STUDENT mode. If you need teacher access, please contact support.', 'info');
+            }, 1000);
             
             const roleIndicator = document.getElementById('role-indicator');
             const roleText = document.getElementById('role-text');
@@ -321,7 +322,7 @@
                         roleIndicator.classList.remove('student-role');
                         roleIndicator.classList.add('teacher-role');
                     }
-                    if (mainTitle) mainTitle.textContent = 'Student Projects';
+                    if (mainTitle) mainTitle.textContent = 'Teacher Dashboard';
                     
                     // Hide create project button and modal for teachers
                     if (createProjectBtn) {
@@ -352,7 +353,7 @@
                         roleIndicator.classList.remove('teacher-role');
                         roleIndicator.classList.add('student-role');
                     }
-                    if (mainTitle) mainTitle.textContent = 'My Projects';
+                    if (mainTitle) mainTitle.textContent = 'Student Dashboard';
                     
                     // Show create project button for students
                     if (createProjectBtn) {
@@ -371,14 +372,35 @@
                 }
             }
             
-            // Configure UI immediately
+            // Apply role configuration
+            console.log('Applying role configuration for:', userRole);
             configureUIForRole(userRole);
+            
+            // Double-check role application after DOM is ready
+            setTimeout(() => {
+                console.log('Double-checking role configuration...');
+                console.log('Current userRole variable:', userRole);
+                console.log('localStorage userRole:', localStorage.getItem('userRole'));
+                
+                // Ensure voting buttons are hidden for students
+                if (userRole === 'student') {
+                    const votingButtons = document.querySelectorAll('.btn-upvote, .btn-downvote');
+                    votingButtons.forEach(btn => {
+                        btn.style.display = 'none';
+                        console.log('Hidden voting button for student');
+                    });
+                }
+            }, 1000);
             
             // --- Logout Logic ---
             logoutBtn.addEventListener('click', () => {
+                // Clear all authentication and role data
                 localStorage.removeItem('token');
                 localStorage.removeItem('userRole');
-                window.location.href = 'role-selection.html';
+                sessionStorage.removeItem('selectedRole');
+                
+                console.log('Cleared all authentication data on logout');
+                window.location.href = 'index.html';
             });
             
             // --- API Call to Fetch User Profile Data ---
@@ -393,33 +415,43 @@
                     const user = await res.json();
                     console.log('User profile data:', user); // Debug log
                     
-                    // Check if profile image element exists
-                    if (!userProfileImg) {
-                        console.error('Profile image element not found!');
-                        return;
-                    }
+                    // Update new dashboard profile elements
+                    const profileAvatar = document.getElementById('profile-avatar');
+                    const profileName = document.getElementById('profile-name');
+                    const profileEmail = document.getElementById('profile-email');
                     
-                    if (user.profilePictureUrl) {
-                        const imageUrl = user.profilePictureUrl.startsWith('http') ? user.profilePictureUrl : `http://localhost:3000${user.profilePictureUrl}`;
-                        console.log('Setting profile image URL:', imageUrl); // Debug log
-                        userProfileImg.src = imageUrl;
-                        
-                        // Add error handling for image loading
-                        userProfileImg.onerror = () => {
-                            console.warn('Failed to load profile image, using fallback');
+                    // Set profile image
+                    if (profileAvatar) {
+                        if (user.profilePictureUrl) {
+                            const imageUrl = user.profilePictureUrl.startsWith('http') ? user.profilePictureUrl : `http://localhost:3000${user.profilePictureUrl}`;
+                            profileAvatar.src = imageUrl;
+                            
+                            profileAvatar.onerror = () => {
+                                console.warn('Failed to load profile image, using fallback');
+                                const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                                profileAvatar.src = `https://placehold.co/40x40/10b981/ffffff?text=${initial}`;
+                            };
+                        } else {
                             const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
-                            userProfileImg.src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
-                        };
-                    } else {
-                        const initial = (user.name || user.email || 'U').charAt(0).toUpperCase();
-                        console.log('No profile picture URL, using initial:', initial); // Debug log
-                        userProfileImg.src = `https://placehold.co/40x40/1877f2/ffffff?text=${initial}`;
+                            profileAvatar.src = `https://placehold.co/40x40/10b981/ffffff?text=${initial}`;
+                        }
                     }
                     
-                    // Update profile name
+                    // Update profile name and email in header
+                    if (profileName) {
+                        profileName.textContent = user.name || 'User';
+                    }
+                    
+                    if (profileEmail) {
+                        profileEmail.textContent = user.email || 'No email';
+                    }
+                    
+                    // Update legacy elements for backward compatibility
+                    if (userProfileImg) {
+                        userProfileImg.src = profileAvatar ? profileAvatar.src : `https://placehold.co/40x40/1877f2/ffffff?text=${(user.name || user.email || 'U').charAt(0).toUpperCase()}`;
+                    }
                     if (userProfileName) {
                         userProfileName.textContent = user.name || user.email;
-                        console.log('Updated profile name:', user.name || user.email); // Debug log
                     }
 
                     // Update profile form fields if they exist
@@ -429,16 +461,227 @@
                     if (profileNameInput) {
                         profileNameInput.value = user.name || '';
                     }
-                    if (profilePicturePreview) {
-                        profilePicturePreview.src = userProfileImg.src;
+                    if (profilePicturePreview && profileAvatar) {
+                        profilePicturePreview.src = profileAvatar.src;
                     }
 
                     console.log('Profile loaded successfully!'); // Debug log
 
                 } catch (error) {
                     console.error('Error loading user profile:', error);
-                    // Don't redirect immediately, just show error
                     showNotification('Failed to load profile. Please refresh the page.', 'error');
+                }
+            };
+
+            // --- Load Dashboard Statistics ---
+            const loadDashboardStats = async () => {
+                try {
+                    // Fetch projects to calculate statistics
+                    const endpoint = userRole === 'teacher' 
+                        ? 'http://localhost:3000/api/projects/all'
+                        : 'http://localhost:3000/api/projects';
+                    
+                    const res = await fetch(endpoint, {
+                        headers: { 'x-auth-token': token }
+                    });
+                    
+                    if (!res.ok) {
+                        throw new Error(`Failed to fetch projects: ${res.status}`);
+                    }
+                    
+                    const projects = await res.json();
+                    
+                    // Calculate statistics
+                    const totalProjects = projects.length;
+                    const completedProjects = projects.filter(p => p.status === 'completed' || p.isCompleted).length;
+                    const runningProjects = projects.filter(p => p.status === 'in-progress' || (!p.status && !p.isCompleted)).length;
+                    const pendingProjects = projects.filter(p => p.status === 'pending').length;
+                    
+                    // Update stat cards with real data
+                    const statCards = document.querySelectorAll('.stat-card');
+                    if (statCards.length >= 4) {
+                        // Total Projects
+                        const totalCard = statCards[0];
+                        const totalNumber = totalCard.querySelector('.stat-number');
+                        if (totalNumber) totalNumber.textContent = totalProjects;
+                        
+                        // Ended/Completed Projects
+                        const completedCard = statCards[1];
+                        const completedNumber = completedCard.querySelector('.stat-number');
+                        if (completedNumber) completedNumber.textContent = completedProjects;
+                        
+                        // Update project title based on user role
+                        const updateProjectTitle = () => {
+                            const projectTitle = document.getElementById('projects-title');
+                            if (projectTitle) {
+                                if (userRole === 'teacher') {
+                                    projectTitle.textContent = 'Student Projects';
+                                    document.querySelector('.projects-subtitle').textContent = 'Review and evaluate student portfolio projects';
+                                } else {
+                                    projectTitle.textContent = 'My Projects';
+                                    document.querySelector('.projects-subtitle').textContent = 'Manage and showcase your portfolio projects';
+                                }
+                            }
+                        };
+                        updateProjectTitle();
+                        
+                        // Running Projects
+                        const runningCard = statCards[2];
+                        const runningNumber = runningCard.querySelector('.stat-number');
+                        if (runningNumber) runningNumber.textContent = runningProjects;
+                        
+                        // Pending Projects
+                        const pendingCard = statCards[3];
+                        const pendingNumber = pendingCard.querySelector('.stat-number');
+                        if (pendingNumber) pendingNumber.textContent = pendingProjects;
+                    }
+                    
+                    // Update progress chart
+                    const progressPercentage = totalProjects > 0 ? Math.round((completedProjects / totalProjects) * 100) : 0;
+                    const progressText = document.querySelector('.progress-percentage');
+                    if (progressText) {
+                        progressText.textContent = `${progressPercentage}%`;
+                    }
+                    
+                    // Update progress circle
+                    const progressCircle = document.querySelector('.progress-circle circle:last-child');
+                    if (progressCircle) {
+                        const circumference = 2 * Math.PI * 45; // radius = 45
+                        const offset = circumference - (progressPercentage / 100) * circumference;
+                        progressCircle.style.strokeDashoffset = offset;
+                    }
+                    
+                    return projects;
+                    
+                } catch (error) {
+                    console.error('Error loading dashboard stats:', error);
+                    showNotification('Failed to load dashboard statistics.', 'error');
+                    return [];
+                }
+            };
+            
+            // --- Load Team Members (for display purposes) ---
+            const loadTeamMembers = async () => {
+                try {
+                    // For now, we'll use the project authors as team members
+                    const endpoint = userRole === 'teacher' 
+                        ? 'http://localhost:3000/api/projects/all'
+                        : 'http://localhost:3000/api/projects';
+                    
+                    const res = await fetch(endpoint, {
+                        headers: { 'x-auth-token': token }
+                    });
+                    
+                    if (res.ok) {
+                        const projects = await res.json();
+                        const teamList = document.getElementById('team-list');
+                        
+                        if (teamList && projects.length > 0) {
+                            // Get unique users from projects
+                            const uniqueUsers = [];
+                            const seenUsers = new Set();
+                            
+                            projects.forEach(project => {
+                                if (project.user && project.user._id && !seenUsers.has(project.user._id)) {
+                                    seenUsers.add(project.user._id);
+                                    uniqueUsers.push({
+                                        ...project.user,
+                                        projectName: project.projectName || project.title,
+                                        status: project.status || 'in-progress',
+                                        techUsed: project.techUsed || 'other'
+                                    });
+                                }
+                            });
+                            
+                            // Display team members (limit to 4 for UI)
+                            const displayUsers = uniqueUsers.slice(0, 4);
+                            teamList.innerHTML = displayUsers.map(user => {
+                                const statusClass = user.status === 'completed' ? 'completed' : 
+                                                  user.status === 'pending' ? 'pending' : 'in-progress';
+                                const statusText = user.status === 'completed' ? 'Completed' : 
+                                                 user.status === 'pending' ? 'Pending' : 'In Progress';
+                                
+                                const avatarUrl = user.profilePictureUrl ? 
+                                    (user.profilePictureUrl.startsWith('http') ? user.profilePictureUrl : `http://localhost:3000${user.profilePictureUrl}`) :
+                                    `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=32&h=32&fit=crop&crop=face&auto=format`;
+                                
+                                return `
+                                    <div class="team-member">
+                                        <img src="${avatarUrl}" alt="${user.name}" onerror="this.src='https://placehold.co/32x32/10b981/ffffff?text=${user.name.charAt(0)}'">
+                                        <div class="member-info">
+                                            <div class="member-name">${user.name}</div>
+                                            <div class="member-role">Working on ${user.projectName}</div>
+                                        </div>
+                                        <div class="member-status ${statusClass}">${statusText}</div>
+                                    </div>
+                                `;
+                            }).join('');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading team members:', error);
+                }
+            };
+            
+            // --- Load Recent Projects for Project List ---
+            const loadRecentProjects = async () => {
+                try {
+                    const endpoint = userRole === 'teacher' 
+                        ? 'http://localhost:3000/api/projects/all'
+                        : 'http://localhost:3000/api/projects';
+                    
+                    const res = await fetch(endpoint, {
+                        headers: { 'x-auth-token': token }
+                    });
+                    
+                    if (res.ok) {
+                        const projects = await res.json();
+                        const projectList = document.querySelector('.project-list');
+                        
+                        if (projectList && projects.length > 0) {
+                            // Sort by creation date and take the 5 most recent
+                            const recentProjects = projects
+                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                .slice(0, 5);
+                            
+                            projectList.innerHTML = recentProjects.map(project => {
+                                const projectName = project.projectName || project.title || 'Untitled Project';
+                                const techUsed = project.techUsed || 'other';
+                                const createdDate = new Date(project.createdAt);
+                                const dueDate = new Date(createdDate.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 days from creation
+                                
+                                // Map tech to icon classes
+                                const iconClass = {
+                                    'web-development': 'code-outline',
+                                    'android-development': 'phone-portrait-outline',
+                                    'ios-development': 'phone-portrait-outline',
+                                    'ai-ml': 'brain-outline',
+                                    'data-science': 'analytics-outline',
+                                    'blockchain': 'link-outline',
+                                    'game-development': 'game-controller-outline',
+                                    'desktop-app': 'desktop-outline',
+                                    'devops': 'server-outline',
+                                    'cybersecurity': 'shield-outline',
+                                    'iot': 'hardware-chip-outline',
+                                    'other': 'code-outline'
+                                }[techUsed] || 'code-outline';
+                                
+                                return `
+                                    <div class="project-item">
+                                        <div class="project-icon ${techUsed}">
+                                            <ion-icon name="${iconClass}"></ion-icon>
+                                        </div>
+                                        <div class="project-info">
+                                            <div class="project-name">${projectName}</div>
+                                            <div class="project-date">Due date: ${dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading recent projects:', error);
                 }
             };
 
@@ -489,7 +732,10 @@
                                         <div class="project-card-actions">
                                             ${projectUrl !== '#' ? `<a href="${projectUrl}" target="_blank" class="btn-view-project" title="View Project"><i class="fas fa-external-link-alt"></i></a>` : ''}
                                             ${githubUrl ? `<a href="${githubUrl}" target="_blank" class="btn-github" title="View Code"><i class="fab fa-github"></i></a>` : ''}
-                                            ${userRole === 'teacher' ? `<button class="btn-upvote" data-project-id="${project._id}" title="Upvote Project"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</button>` : ''}
+                                            ${userRole === 'teacher' ? `
+                                                <button class="btn-upvote" data-project-id="${project._id}" title="Upvote Project"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</button>
+                                                <button class="btn-downvote" data-project-id="${project._id}" title="Downvote Project"><i class="fas fa-thumbs-down"></i> ${project.downvotes || 0}</button>
+                                            ` : ''}
                                         </div>
                                     </div>
                                 </div>
@@ -499,19 +745,41 @@
                                         <span class="tech-badge tech-${techUsed}">${techDisplayName}</span>
                                     </div>
                                     <p class="project-description">${projectDescription.length > 120 ? projectDescription.substring(0, 120) + '...' : projectDescription}</p>
-                                    ${project.user && project.user.name ? `<div class="project-author">by ${project.user.name}</div>` : ''}
+                                    ${project.user && project.user.name ? `<div class="project-author">by <span class="student-name-link" data-student-id="${project.user._id}" onclick="viewStudentProfile('${project.user._id}')">${project.user.name}</span></div>` : ''}
                                     <div class="project-stats">
                                         <span class="stat-item"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</span>
+                                        ${userRole === 'teacher' ? `<span class="stat-item"><i class="fas fa-thumbs-down"></i> ${project.downvotes || 0}</span>` : ''}
                                         <span class="stat-item"><i class="fas fa-calendar"></i> ${new Date(project.createdAt).toLocaleDateString()}</span>
+                                        ${userRole === 'teacher' ? `<span class="stat-item"><i class="fas fa-comments"></i> ${project.comments ? project.comments.length : 0}</span>` : ''}
                                     </div>
+                                    ${userRole === 'teacher' ? `
+                                    <div class="comment-section">
+                                        <div class="comment-toggle" onclick="toggleComments('${project._id}')">
+                                            <i class="fas fa-comment"></i> Comments (${project.comments ? project.comments.length : 0})
+                                        </div>
+                                        <div id="comments-${project._id}" class="comments-container" style="display: none;">
+                                            <div class="comments-list" id="comments-list-${project._id}">
+                                                <p class="loading-comments">Loading comments...</p>
+                                            </div>
+                                            <div class="add-comment">
+                                                <textarea id="comment-input-${project._id}" placeholder="Add a comment..." maxlength="1000"></textarea>
+                                                <button onclick="addComment('${project._id}')" class="btn-add-comment">
+                                                    <i class="fas fa-paper-plane"></i> Post Comment
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
                                 </div>
                             `;
                             projectGrid.appendChild(card);
                         });
                         
-                        // Add upvote functionality for teachers
+                        // Add upvote and downvote functionality for teachers ONLY
                         if (userRole === 'teacher') {
-                            addUpvoteFunctionality();
+                            console.log('Adding voting functionality for teacher');
+                            addVotingFunctionality();
+                        } else {
+                            console.log('Skipping voting functionality for student');
                         }
                     }
                     
@@ -534,44 +802,168 @@
                         return techMap[techCode] || 'General';
                     }
                     
-                    // Add upvote functionality for teachers
-                    function addUpvoteFunctionality() {
+                    // Add upvote and downvote functionality for teachers
+                    function addVotingFunctionality() {
+                        // Safety check - only allow teachers to vote
+                        if (userRole !== 'teacher') {
+                            console.log('Voting functionality blocked - user is not a teacher');
+                            return;
+                        }
+                        
+                        // Handle upvote buttons
                         const upvoteButtons = document.querySelectorAll('.btn-upvote');
                         upvoteButtons.forEach(button => {
                             button.addEventListener('click', async (e) => {
                                 e.preventDefault();
                                 const projectId = button.getAttribute('data-project-id');
                                 
-                                if (!projectId) return;
+                                if (!projectId) {
+                                    showNotification('Invalid project ID', 'error');
+                                    return;
+                                }
                                 
                                 button.disabled = true;
                                 const originalContent = button.innerHTML;
-                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Voting...';
+                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                                 
                                 try {
                                     const res = await fetch(`http://localhost:3000/api/projects/${projectId}/upvote`, {
                                         method: 'POST',
-                                        headers: { 'x-auth-token': token }
+                                        headers: { 
+                                            'x-auth-token': token,
+                                            'Content-Type': 'application/json'
+                                        }
                                     });
                                     
-                                    if (!res.ok) {
-                                        const errorData = await res.json();
-                                        throw new Error(errorData.message || 'Failed to upvote project');
+                                    // Check if response is JSON
+                                    const contentType = res.headers.get('content-type');
+                                    if (!contentType || !contentType.includes('application/json')) {
+                                        throw new Error('Server returned invalid response format');
                                     }
                                     
-                                    const updatedProject = await res.json();
-                                    button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes}`;
+                                    const responseData = await res.json();
+                                    
+                                    if (!res.ok) {
+                                        throw new Error(responseData.message || `Server error: ${res.status}`);
+                                    }
+                                    
+                                    const updatedProject = responseData;
+                                    button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
                                     
                                     // Update the stats display as well
-                                    const statsUpvote = button.closest('.project-card').querySelector('.stat-item i.fa-thumbs-up').parentElement;
-                                    statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes}`;
+                                    const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
+                                    if (statsUpvote) {
+                                        statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
+                                    }
+                                    
+                                    // Update downvote count if it changed
+                                    if (updatedProject.downvotes !== undefined) {
+                                        const projectCardActions = button.closest('.project-card-actions');
+                                        const downvoteButton = projectCardActions?.querySelector('.btn-downvote');
+                                        if (downvoteButton) {
+                                            downvoteButton.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
+                                            downvoteButton.disabled = false; // Re-enable downvote button
+                                        }
+                                        const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
+                                        if (statsDownvote) {
+                                            statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
+                                        }
+                                    }
                                     
                                     showNotification('Project upvoted successfully!', 'success');
                                     
                                 } catch (error) {
                                     console.error('Upvote error:', error);
                                     button.innerHTML = originalContent;
-                                    showNotification(`Error: ${error.message}`, 'error');
+                                    
+                                    // Handle specific error cases
+                                    if (error.message.includes('already upvoted')) {
+                                        showNotification('You have already upvoted this project', 'info');
+                                    } else if (error.message.includes('Project not found')) {
+                                        showNotification('Project not found', 'error');
+                                    } else {
+                                        showNotification(`Failed to upvote: ${error.message}`, 'error');
+                                    }
+                                } finally {
+                                    button.disabled = false;
+                                }
+                            });
+                        });
+
+                        // Handle downvote buttons
+                        const downvoteButtons = document.querySelectorAll('.btn-downvote');
+                        downvoteButtons.forEach(button => {
+                            button.addEventListener('click', async (e) => {
+                                e.preventDefault();
+                                const projectId = button.getAttribute('data-project-id');
+                                
+                                if (!projectId) {
+                                    showNotification('Invalid project ID', 'error');
+                                    return;
+                                }
+                                
+                                button.disabled = true;
+                                const originalContent = button.innerHTML;
+                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                                
+                                try {
+                                    const res = await fetch(`http://localhost:3000/api/projects/${projectId}/downvote`, {
+                                        method: 'POST',
+                                        headers: { 
+                                            'x-auth-token': token,
+                                            'Content-Type': 'application/json'
+                                        }
+                                    });
+                                    
+                                    // Check if response is JSON
+                                    const contentType = res.headers.get('content-type');
+                                    if (!contentType || !contentType.includes('application/json')) {
+                                        throw new Error('Server returned invalid response format');
+                                    }
+                                    
+                                    const responseData = await res.json();
+                                    
+                                    if (!res.ok) {
+                                        throw new Error(responseData.message || `Server error: ${res.status}`);
+                                    }
+                                    
+                                    const updatedProject = responseData;
+                                    button.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
+                                    
+                                    // Update the stats display as well
+                                    const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
+                                    if (statsDownvote) {
+                                        statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
+                                    }
+                                    
+                                    // Update upvote count if it changed
+                                    if (updatedProject.upvotes !== undefined) {
+                                        const projectCardActions = button.closest('.project-card-actions');
+                                        const upvoteButton = projectCardActions?.querySelector('.btn-upvote');
+                                        if (upvoteButton) {
+                                            upvoteButton.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
+                                            upvoteButton.disabled = false; // Re-enable upvote button
+                                        }
+                                        const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
+                                        if (statsUpvote) {
+                                            statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
+                                        }
+                                    }
+                                    
+                                    showNotification('Project downvoted successfully!', 'success');
+                                    
+                                } catch (error) {
+                                    console.error('Downvote error:', error);
+                                    button.innerHTML = originalContent;
+                                    
+                                    // Handle specific error cases
+                                    if (error.message.includes('already downvoted')) {
+                                        showNotification('You have already downvoted this project', 'info');
+                                    } else if (error.message.includes('Project not found')) {
+                                        showNotification('Project not found', 'error');
+                                    } else {
+                                        showNotification(`Failed to downvote: ${error.message}`, 'error');
+                                    }
                                 } finally {
                                     button.disabled = false;
                                 }
@@ -601,9 +993,7 @@
                 }
             }
             
-            if (myProfileBtn) {
-                myProfileBtn.addEventListener('click', () => openModal(profileModal));
-            }
+            // Profile button is now a direct link to profile.html - no event listener needed
 
             const projectModalClose = document.getElementById('project-modal-close');
             if (projectModalClose) {
@@ -615,15 +1005,7 @@
                 cancelCreateBtn.addEventListener('click', () => closeModal(createProjectModal));
             }
 
-            const profileModalClose = document.getElementById('profile-modal-close');
-            if (profileModalClose) {
-                profileModalClose.addEventListener('click', () => closeModal(profileModal));
-            }
-            
-            const cancelProfileBtn = document.getElementById('cancel-profile-btn');
-            if (cancelProfileBtn) {
-                cancelProfileBtn.addEventListener('click', () => closeModal(profileModal));
-            }
+            // Profile modal event listeners removed - using dedicated profile page now
 
             // --- Image Upload Variables ---
             const projectImageInput = document.getElementById('project-image');
@@ -921,12 +1303,189 @@
                 });
             }
 
+            // --- Time Tracker Functionality ---
+            let timerInterval;
+            let startTime = Date.now();
+            let elapsedTime = 0;
+            let isRunning = true;
+            
+            function updateTimer() {
+                if (isRunning) {
+                    elapsedTime = Date.now() - startTime;
+                }
+                
+                const totalSeconds = Math.floor(elapsedTime / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                const timerDisplay = document.getElementById('timer-display');
+                if (timerDisplay) {
+                    timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+            
+            // Initialize timer
+            timerInterval = setInterval(updateTimer, 1000);
+            updateTimer(); // Initial update
+            
+            // Timer controls
+            const pauseBtn = document.getElementById('pause-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            
+            if (pauseBtn) {
+                pauseBtn.addEventListener('click', () => {
+                    if (isRunning) {
+                        isRunning = false;
+                        pauseBtn.innerHTML = '<ion-icon name="play-outline"></ion-icon>';
+                    } else {
+                        startTime = Date.now() - elapsedTime;
+                        isRunning = true;
+                        pauseBtn.innerHTML = '<ion-icon name="pause-outline"></ion-icon>';
+                    }
+                });
+            }
+            
+            if (stopBtn) {
+                stopBtn.addEventListener('click', () => {
+                    isRunning = false;
+                    elapsedTime = 0;
+                    startTime = Date.now();
+                    updateTimer();
+                    if (pauseBtn) {
+                        pauseBtn.innerHTML = '<ion-icon name="pause-outline"></ion-icon>';
+                    }
+                });
+            }
+            
+            // --- Connect Add Project Button to Modal ---
+            const addProjectBtn = document.getElementById('add-project-btn');
+            if (addProjectBtn && createProjectModal) {
+                addProjectBtn.addEventListener('click', () => {
+                    createProjectModal.classList.add('show');
+                    createProjectModal.style.display = 'flex';
+                });
+            }
+            
+            // --- Update Dashboard Title Based on Role ---
+            const dashboardTitle = document.querySelector('.dashboard-content h1');
+            if (dashboardTitle) {
+                if (userRole === 'teacher') {
+                    dashboardTitle.textContent = 'Teacher Dashboard';
+                    const dashboardSubtitle = document.querySelector('.header-content p');
+                    if (dashboardSubtitle) {
+                        dashboardSubtitle.textContent = 'Monitor student progress and evaluate projects.';
+                    }
+                } else {
+                    dashboardTitle.textContent = 'Student Dashboard';
+                    const dashboardSubtitle = document.querySelector('.header-content p');
+                    if (dashboardSubtitle) {
+                        dashboardSubtitle.textContent = 'Plan, prioritize, and accomplish your projects with ease.';
+                    }
+                }
+            }
+            
+            // --- Load Analytics Chart (Simple Implementation) ---
+            const loadAnalyticsChart = () => {
+                const canvas = document.getElementById('analytics-chart');
+                if (canvas) {
+                    const ctx = canvas.getContext('2d');
+                    const width = canvas.width = canvas.offsetWidth;
+                    const height = canvas.height = canvas.offsetHeight;
+                    
+                    // Simple bar chart representation
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    // Draw bars (sample data)
+                    const bars = [
+                        { label: 'M', value: 0.3, color: 'rgba(255, 255, 255, 0.3)' },
+                        { label: 'T', value: 0.8, color: 'rgba(255, 255, 255, 0.6)' },
+                        { label: 'W', value: 0.6, color: 'rgba(255, 255, 255, 0.4)' },
+                        { label: 'T', value: 1.0, color: 'rgba(255, 255, 255, 0.8)' },
+                        { label: 'F', value: 0.4, color: 'rgba(255, 255, 255, 0.3)' },
+                        { label: 'S', value: 0.7, color: 'rgba(255, 255, 255, 0.5)' },
+                        { label: 'S', value: 0.5, color: 'rgba(255, 255, 255, 0.4)' }
+                    ];
+                    
+                    const barWidth = width / bars.length;
+                    bars.forEach((bar, index) => {
+                        const barHeight = height * bar.value * 0.8;
+                        const x = index * barWidth + barWidth * 0.2;
+                        const y = height - barHeight - 20;
+                        
+                        ctx.fillStyle = bar.color;
+                        ctx.fillRect(x, y, barWidth * 0.6, barHeight);
+                        
+                        // Draw labels
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                        ctx.font = '12px Inter';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(bar.label, x + barWidth * 0.3, height - 5);
+                    });
+                }
+            };
+            
+            // --- Profile Dropdown Toggle ---
+            const userProfileElement = document.getElementById('user-profile');
+            
+            if (userProfileElement && profileDropdown) {
+                // Remove the direct link functionality and add dropdown toggle
+                const profileAvatarLink = userProfileElement.querySelector('.profile-avatar-link');
+                if (profileAvatarLink) {
+                    profileAvatarLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        userProfileElement.classList.toggle('active');
+                    });
+                }
+                
+                // Also allow clicking on the profile info to toggle dropdown
+                const profileInfo = userProfileElement.querySelector('.profile-info');
+                if (profileInfo) {
+                    profileInfo.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        userProfileElement.classList.toggle('active');
+                    });
+                }
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', () => {
+                    userProfileElement.classList.remove('active');
+                });
+                
+                // Prevent dropdown from closing when clicking inside it
+                profileDropdown.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            
             // --- Initial Load ---
             Promise.all([
                 loadUserProfile(),
+                loadDashboardStats(),
+                loadTeamMembers(),
+                loadRecentProjects(),
                 loadProjects()
-            ]);
+            ]).then(() => {
+                // Load analytics chart after DOM is ready
+                setTimeout(loadAnalyticsChart, 100);
+                console.log('Dashboard loaded successfully!');
+            }).catch(error => {
+                console.error('Error loading dashboard:', error);
+                showNotification('Error loading dashboard data.', 'error');
+            });
         });
+
+        // --- Global Functions (called from onclick events) ---
+        // View student profile (for teachers)
+        function viewStudentProfile(studentId) {
+            if (!studentId) {
+                console.error('No student ID provided');
+                return;
+            }
+            window.location.href = `/student-profile.html?studentId=${studentId}`;
+        }
     </script>
     <script
       type="module"

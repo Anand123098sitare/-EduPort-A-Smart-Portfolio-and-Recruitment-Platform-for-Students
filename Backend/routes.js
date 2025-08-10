@@ -174,16 +174,30 @@ router.post('/:id/upvote', auth, async (req, res) => {
             return res.status(404).json({ message: 'Project not found' });
         }
 
+        // Initialize arrays if they don't exist
+        if (!project.upvotedBy) {
+            project.upvotedBy = [];
+        }
+        if (!project.downvotedBy) {
+            project.downvotedBy = [];
+        }
+
         // Check if user has already upvoted this project
         if (project.upvotedBy.includes(req.user.id)) {
             return res.status(400).json({ message: 'You have already upvoted this project' });
+        }
+
+        // Remove from downvotedBy if user had downvoted before
+        if (project.downvotedBy.includes(req.user.id)) {
+            project.downvotedBy = project.downvotedBy.filter(userId => userId.toString() !== req.user.id);
+            project.downvotes = project.downvotedBy.length;
         }
 
         // Add user to upvotedBy array and increment upvotes
         project.upvotedBy.push(req.user.id);
         project.upvotes = project.upvotedBy.length;
 
-        await project.save();
+        await project.save({ validateBeforeSave: false });
         
         // Return the updated project with user info
         await project.populate('user', 'name email');
@@ -191,6 +205,49 @@ router.post('/:id/upvote', auth, async (req, res) => {
         res.json(project);
     } catch (err) {
         console.error('Upvote error:', err.message);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+// @route   POST api/projects/:id/downvote
+// @desc    Downvote a project (with duplicate prevention)
+// @access  Private
+router.post('/:id/downvote', auth, async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        // Check if user has already downvoted this project
+        if (project.downvotedBy && project.downvotedBy.includes(req.user.id)) {
+            return res.status(400).json({ message: 'You have already downvoted this project' });
+        }
+
+        // Initialize downvotedBy array if it doesn't exist
+        if (!project.downvotedBy) {
+            project.downvotedBy = [];
+        }
+
+        // Remove from upvotedBy if user had upvoted before
+        if (project.upvotedBy && project.upvotedBy.includes(req.user.id)) {
+            project.upvotedBy = project.upvotedBy.filter(userId => userId.toString() !== req.user.id);
+            project.upvotes = project.upvotedBy.length;
+        }
+
+        // Add user to downvotedBy array and increment downvotes
+        project.downvotedBy.push(req.user.id);
+        project.downvotes = project.downvotedBy.length;
+
+        await project.save({ validateBeforeSave: false });
+        
+        // Return the updated project with user info
+        await project.populate('user', 'name email');
+        
+        res.json(project);
+    } catch (err) {
+        console.error('Downvote error:', err.message);
         res.status(500).json({ message: 'Server Error' });
     }
 });
@@ -209,6 +266,5 @@ router.get('/all', auth, async (req, res) => {
         res.status(500).json({ message: 'Server Error' });
     }
 });
-
 
 module.exports = router;

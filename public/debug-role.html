@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Debug Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .clear-btn {
+            background: #dc3545;
+        }
+        .clear-btn:hover {
+            background: #c82333;
+        }
+        .info {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #ffe7e7;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>EduPort Role Debug Tool</h1>
+        <p>Use this tool to debug and fix role-related issues in EduPort.</p>
+        
+        <div class="debug-section">
+            <h3>Current Storage Status</h3>
+            <div id="storage-status"></div>
+            <button onclick="checkStorage()">Refresh Status</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Clear All Role Data</h3>
+            <p>This will clear all stored role and authentication data.</p>
+            <button class="clear-btn" onclick="clearAllData()">Clear All Data</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Set Role Manually</h3>
+            <p>Force set your role for testing purposes.</p>
+            <button onclick="setRole('student')">Set as Student</button>
+            <button onclick="setRole('teacher')">Set as Teacher</button>
+        </div>
+        
+        <div class="debug-section">
+            <h3>Navigation</h3>
+            <button onclick="goToRoleSelection()">Go to Role Selection</button>
+            <button onclick="goToDashboard()">Go to Dashboard</button>
+            <button onclick="goToLogin()">Go to Login</button>
+        </div>
+        
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        function showMessage(message, type = 'info') {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            messagesDiv.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+        
+        function checkStorage() {
+            const statusDiv = document.getElementById('storage-status');
+            const token = localStorage.getItem('token');
+            const userRole = localStorage.getItem('userRole');
+            const selectedRole = sessionStorage.getItem('selectedRole');
+            
+            statusDiv.innerHTML = `
+                <p><strong>localStorage.token:</strong> ${token ? 'Present' : 'Not found'}</p>
+                <p><strong>localStorage.userRole:</strong> ${userRole || 'Not found'}</p>
+                <p><strong>sessionStorage.selectedRole:</strong> ${selectedRole || 'Not found'}</p>
+                <p><strong>Current Time:</strong> ${new Date().toLocaleString()}</p>
+            `;
+        }
+        
+        function clearAllData() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userRole');
+            sessionStorage.removeItem('selectedRole');
+            
+            showMessage('All role and authentication data cleared!', 'info');
+            checkStorage();
+        }
+        
+        function setRole(role) {
+            localStorage.setItem('userRole', role);
+            sessionStorage.setItem('selectedRole', role);
+            
+            showMessage(`Role set to: ${role}`, 'info');
+            checkStorage();
+        }
+        
+        function goToRoleSelection() {
+            window.location.href = 'role-selection.html';
+        }
+        
+        function goToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+        
+        function goToLogin() {
+            window.location.href = 'login.html';
+        }
+        
+        // Auto-refresh status on page load
+        window.onload = function() {
+            checkStorage();
+        };
+    </script>
+</body>
+</html>

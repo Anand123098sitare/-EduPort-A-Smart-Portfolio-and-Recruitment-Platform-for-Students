@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Error - EduPort</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        
+        .error-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .error-icon {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .error-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .error-details h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .error-details p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .debug-info {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f1f3f4;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: left;
+        }
+        
+        .debug-info h5 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .debug-info pre {
+            background: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        
+        <h1 class="error-title">Access Denied</h1>
+        
+        <p class="error-message">
+            You don't have permission to access this page, or your role is invalid.
+        </p>
+        
+        <div class="error-details">
+            <h4>What happened?</h4>
+            <p id="error-description">
+                Your user role is either missing, invalid, or you're trying to access a page that doesn't match your role.
+            </p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="role-selection.html" class="btn btn-primary">
+                <i class="fas fa-user-check"></i>
+                Select Role & Login
+            </a>
+            <button onclick="clearDataAndRedirect()" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+                Clear Data & Restart
+            </button>
+            <a href="index.html" class="btn btn-secondary">
+                <i class="fas fa-home"></i>
+                Go Home
+            </a>
+        </div>
+        
+        <div class="debug-info">
+            <h5>Debug Information:</h5>
+            <pre id="debug-data"></pre>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get debug information
+            const token = localStorage.getItem('token');
+            const userRole = localStorage.getItem('userRole');
+            const selectedRole = sessionStorage.getItem('selectedRole');
+            const currentPage = window.location.pathname.split('/').pop();
+            
+            // Display debug information
+            const debugData = {
+                currentPage: currentPage,
+                hasToken: !!token,
+                userRole: userRole || 'Not set',
+                selectedRole: selectedRole || 'Not set',
+                timestamp: new Date().toISOString()
+            };
+            
+            document.getElementById('debug-data').textContent = JSON.stringify(debugData, null, 2);
+            
+            // Update error description based on the issue
+            let errorDescription = '';
+            
+            if (!token) {
+                errorDescription = 'You are not logged in. Please log in first.';
+            } else if (!userRole || (userRole !== 'student' && userRole !== 'teacher')) {
+                errorDescription = `Your role "${userRole}" is invalid. Valid roles are "student" or "teacher".`;
+            } else if (currentPage.includes('student') && userRole !== 'student') {
+                errorDescription = `You are trying to access the student dashboard, but your role is "${userRole}".`;
+            } else if (currentPage.includes('teacher') && userRole !== 'teacher') {
+                errorDescription = `You are trying to access the teacher dashboard, but your role is "${userRole}".`;
+            } else {
+                errorDescription = 'An unknown access error occurred.';
+            }
+            
+            document.getElementById('error-description').textContent = errorDescription;
+        });
+        
+        function clearDataAndRedirect() {
+            // Clear all stored data
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            // Show confirmation
+            alert('All data cleared. You will be redirected to the role selection page.');
+            
+            // Redirect to role selection
+            window.location.href = 'role-selection.html';
+        }
+    </script>
+</body>
+</html>

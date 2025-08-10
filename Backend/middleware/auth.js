@@ -5,10 +5,18 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'a_super_secret_jwt_key_that_is_long_and_random';
 
 module.exports = function(req, res, next) {
-  // Get token from the request header, typically named 'x-auth-token'
-  const token = req.header('x-auth-token');
+  // Get token from the request header - support both x-auth-token and Authorization Bearer formats
+  let token = req.header('x-auth-token');
+  
+  // If no x-auth-token, check for Authorization header with Bearer format
+  if (!token) {
+    const authHeader = req.header('Authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    }
+  }
 
-  // Check if no token is present in the header
+  // Check if no token is present in either header format
   if (!token) {
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }

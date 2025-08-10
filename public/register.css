@@ -24,7 +24,7 @@
 }
 
 body {
-    background-image: url("/public/vintage-grunge-blue-concrete-texture-studio-wall-background-with-vignette.jpg");
+    background-image: url("images/vintage-grunge-blue-concrete-texture-studio-wall-background-with-vignette.jpg");
     background-size: cover;
     background-position: center;
     color: var(--text-primary);

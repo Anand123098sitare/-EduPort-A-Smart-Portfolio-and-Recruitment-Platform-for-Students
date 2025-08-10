@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile - EduPort</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="student-profile.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>EduPort</h2>
+            </div>
+            <div class="nav-actions">
+                <button onclick="goBack()" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </button>
+                <button onclick="logout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Loading student profile...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-container" style="display: none;">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Profile Not Found</h3>
+                    <p id="errorMessage">Unable to load student profile.</p>
+                    <button onclick="goBack()" class="btn-primary">Go Back</button>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div id="profileContent" class="profile-container" style="display: none;">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-image-container">
+                        <img id="profileImage" src="" alt="Profile Picture" class="profile-image">
+                        <div class="profile-status">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Student</span>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="studentName" class="student-name">Loading...</h1>
+                        <p id="studentUsername" class="student-username">@username</p>
+                        <p id="studentEmail" class="student-email">email@example.com</p>
+                        <div class="profile-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="joinDate">Joined: Loading...</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Details -->
+                <div class="profile-details">
+                    <!-- About Section -->
+                    <div class="detail-section">
+                        <h3><i class="fas fa-user"></i> About</h3>
+                        <div class="detail-content">
+                            <p id="studentBio" class="bio-text">No bio available.</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Links Section -->
+                    <div class="detail-section" id="socialLinksSection" style="display: none;">
+                        <h3><i class="fas fa-link"></i> Social Links</h3>
+                        <div class="detail-content">
+                            <div id="socialLinks" class="social-links">
+                                <!-- Social links will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resume Section -->
+                    <div class="detail-section" id="resumeSection" style="display: none;">
+                        <h3><i class="fas fa-file-alt"></i> Resume</h3>
+                        <div class="detail-content">
+                            <div class="resume-container">
+                                <div class="resume-info">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span>Resume available</span>
+                                </div>
+                                <a id="resumeLink" href="#" target="_blank" class="btn-download">
+                                    <i class="fas fa-download"></i> Download Resume
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projects Section -->
+                    <div class="detail-section">
+                        <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                        <div class="detail-content">
+                            <div id="studentProjects" class="projects-grid">
+                                <p class="loading-text">Loading projects...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="student-profile.js"></script>
+</body>
+</html>

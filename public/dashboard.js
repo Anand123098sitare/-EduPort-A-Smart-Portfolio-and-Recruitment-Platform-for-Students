@@ -124,3 +124,146 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchAndDisplayProjects()
     ]);
 });
+
+// --- TEACHER-STUDENT INTERACTION FEATURES ---
+
+// View student profile (for teachers)
+function viewStudentProfile(studentId) {
+    if (!studentId) {
+        console.error('No student ID provided');
+        return;
+    }
+    window.location.href = `/student-profile.html?studentId=${studentId}`;
+}
+
+// Toggle comment section visibility
+function toggleComments(projectId) {
+    const commentsContainer = document.getElementById(`comments-${projectId}`);
+    const isVisible = commentsContainer.style.display !== 'none';
+    
+    if (isVisible) {
+        commentsContainer.style.display = 'none';
+    } else {
+        commentsContainer.style.display = 'block';
+        loadComments(projectId);
+    }
+}
+
+// Load comments for a project
+async function loadComments(projectId) {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/projects/${projectId}/comments`, {
+            headers: {
+                'x-auth-token': token
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to load comments');
+        }
+
+        const comments = await response.json();
+        displayComments(projectId, comments);
+    } catch (error) {
+        console.error('Failed to load comments:', error);
+        const commentsList = document.getElementById(`comments-list-${projectId}`);
+        commentsList.innerHTML = '<p class="error-text">Failed to load comments</p>';
+    }
+}
+
+// Display comments in the comments list
+function displayComments(projectId, comments) {
+    const commentsList = document.getElementById(`comments-list-${projectId}`);
+    
+    if (comments.length === 0) {
+        commentsList.innerHTML = '<p class="no-comments">No comments yet. Be the first to comment!</p>';
+        return;
+    }
+
+    commentsList.innerHTML = comments.map(comment => `
+        <div class="comment-item">
+            <div class="comment-header">
+                <strong>${comment.user.name}</strong>
+                <span class="comment-date">${new Date(comment.createdAt).toLocaleDateString()}</span>
+            </div>
+            <div class="comment-text">${comment.text}</div>
+        </div>
+    `).join('');
+}
+
+// Add a new comment
+async function addComment(projectId) {
+    const commentInput = document.getElementById(`comment-input-${projectId}`);
+    const commentText = commentInput.value.trim();
+    
+    if (!commentText) {
+        showNotification('Please enter a comment', 'error');
+        return;
+    }
+
+    if (commentText.length > 1000) {
+        showNotification('Comment must be less than 1000 characters', 'error');
+        return;
+    }
+
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/projects/${projectId}/comments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': token
+            },
+            body: JSON.stringify({ text: commentText })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to add comment');
+        }
+
+        const newComment = await response.json();
+        
+        // Clear the input
+        commentInput.value = '';
+        
+        // Reload comments to show the new one
+        loadComments(projectId);
+        
+        // Update comment count in the toggle button
+        const commentToggle = document.querySelector(`[onclick="toggleComments('${projectId}')"]`);
+        const currentCount = parseInt(commentToggle.textContent.match(/\d+/)[0]) || 0;
+        commentToggle.innerHTML = `<i class="fas fa-comment"></i> Comments (${currentCount + 1})`;
+        
+        // Update comment count in stats
+        const statsCommentCount = document.querySelector(`[data-project-id="${projectId}"]`)?.closest('.project-card')?.querySelector('.stat-item i.fa-comments')?.parentElement;
+        if (statsCommentCount) {
+            statsCommentCount.innerHTML = `<i class="fas fa-comments"></i> ${currentCount + 1}`;
+        }
+        
+        showNotification('Comment added successfully!', 'success');
+    } catch (error) {
+        console.error('Failed to add comment:', error);
+        showNotification(error.message, 'error');
+    }
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    // Create notification element if it doesn't exist
+    let notification = document.getElementById('notification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'notification';
+        notification.className = 'notification';
+        document.body.appendChild(notification);
+    }
+    
+    notification.textContent = message;
+    notification.className = `notification ${type} show`;
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
