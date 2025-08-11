@@ -510,7 +510,7 @@
       // Load all projects
       async function loadAllProjects() {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/projects/all', {
+        const response = await fetch('http://localhost:3000/api/projects/community', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -771,7 +771,7 @@
 
         try {
           const response = await fetch(`http://localhost:3000/api/projects/${projectId}/${voteType}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json'
@@ -824,16 +824,42 @@
       // Update vote counts in UI without full reload
       function updateProjectVoteCounts(projectId, updatedProject) {
         const projectCard = document.querySelector(`[data-project-id="${projectId}"]`);
-        if (!projectCard) return;
+        if (!projectCard) {
+          console.log('Project card not found for ID:', projectId);
+          return;
+        }
+
+        console.log('Updating vote counts for project:', projectId);
+        console.log('Updated project data:', updatedProject);
 
         const upvoteCount = projectCard.querySelector('.project-stats span:first-child');
         const downvoteCount = projectCard.querySelector('.project-stats span:nth-child(2)');
         
+        // Use upvotedBy and downvotedBy arrays from backend response
+        // Handle legacy projects that might not have these arrays initialized
+        const upvotes = (updatedProject.upvotedBy && Array.isArray(updatedProject.upvotedBy)) ? updatedProject.upvotedBy.length : 0;
+        const downvotes = (updatedProject.downvotedBy && Array.isArray(updatedProject.downvotedBy)) ? updatedProject.downvotedBy.length : 0;
+        
+        console.log('Calculated vote counts - Upvotes:', upvotes, 'Downvotes:', downvotes);
+        
         if (upvoteCount) {
-          upvoteCount.innerHTML = `<ion-icon name="thumbs-up-outline"></ion-icon> ${updatedProject.upvotes || 0}`;
+          upvoteCount.innerHTML = `<ion-icon name="thumbs-up-outline"></ion-icon> ${upvotes}`;
+          console.log('Updated upvote display');
         }
         if (downvoteCount) {
-          downvoteCount.innerHTML = `<ion-icon name="thumbs-down-outline"></ion-icon> ${updatedProject.downvotes || 0}`;
+          downvoteCount.innerHTML = `<ion-icon name="thumbs-down-outline"></ion-icon> ${downvotes}`;
+          console.log('Updated downvote display');
+        }
+        
+        // Also update the vote buttons if they exist
+        const upvoteButton = projectCard.querySelector('.btn-vote.upvote');
+        const downvoteButton = projectCard.querySelector('.btn-vote.downvote');
+        
+        if (upvoteButton) {
+          upvoteButton.innerHTML = `<ion-icon name="thumbs-up-outline"></ion-icon> Upvote (${upvotes})`;
+        }
+        if (downvoteButton) {
+          downvoteButton.innerHTML = `<ion-icon name="thumbs-down-outline"></ion-icon> Downvote (${downvotes})`;
         }
       }
 

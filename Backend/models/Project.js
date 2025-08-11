@@ -34,7 +34,7 @@ const ProjectSchema = new mongoose.Schema({
   },
   projectUrl: {
     type: String,
-    required: true
+    required: false
   },
   githubUrl: {
     type: String,

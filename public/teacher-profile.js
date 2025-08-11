@@ -90,7 +90,7 @@ function populateProfileForm(user) {
 async function loadAllProjects() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/projects/all', {
+        const response = await fetch('http://localhost:3000/api/projects/community', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         

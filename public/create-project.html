@@ -286,6 +286,12 @@
                     </div>
                     
                     <div class="form-group">
+                        <label for="project-url">Project URL (Optional)</label>
+                        <input type="url" id="project-url" name="projectUrl" 
+                               placeholder="https://yourproject.com or https://your-demo-link.netlify.app">
+                    </div>
+                    
+                    <div class="form-group">
                         <label for="github-url">GitHub Repository (Optional)</label>
                         <input type="url" id="github-url" name="githubUrl" 
                                placeholder="https://github.com/username/repo">
@@ -409,6 +415,9 @@
             validateForm();
         });
 
+        // API Base URL
+        const API_BASE = 'http://127.0.0.1:3000/api';
+
         // Form submission
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -423,13 +432,14 @@
                 formData.append('projectName', document.getElementById('project-name').value.trim());
                 formData.append('projectDescription', document.getElementById('project-description').value.trim());
                 formData.append('techUsed', document.getElementById('tech-used').value);
+                formData.append('projectUrl', document.getElementById('project-url').value.trim());
                 formData.append('githubUrl', document.getElementById('github-url').value.trim());
                 formData.append('projectImage', fileInput.files[0]);
 
-                const response = await fetch('http://localhost:3000/api/projects', {
+                const response = await fetch(`${API_BASE}/projects`, {
                     method: 'POST',
                     headers: {
-                        'x-auth-token': token
+                        'Authorization': `Bearer ${token}`
                     },
                     body: formData
                 });

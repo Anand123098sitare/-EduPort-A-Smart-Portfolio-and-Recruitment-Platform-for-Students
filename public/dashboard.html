@@ -32,7 +32,7 @@
               <path d="M8 12l2 2 4-4"/>
             </svg>
           </div>
-          <span class="logo-text">Donezo</span>
+          <span class="logo-text">EduPort</span>
         </div>
       </div>
       
@@ -70,19 +70,6 @@
               </a>
             </li>
           </ul>
-        </div>
-      </div>
-      
-      <div class="sidebar-footer">
-        <div class="app-download">
-          <div class="download-icon">
-            <ion-icon name="phone-portrait-outline"></ion-icon>
-          </div>
-          <div class="download-content">
-            <h4>Download our Mobile App</h4>
-            <p>Get easy access on mobile app</p>
-            <button class="download-btn">Download</button>
-          </div>
         </div>
       </div>
     </nav>
@@ -476,13 +463,11 @@
             // --- Load Dashboard Statistics ---
             const loadDashboardStats = async () => {
                 try {
-                    // Fetch projects to calculate statistics
-                    const endpoint = userRole === 'teacher' 
-                        ? 'http://localhost:3000/api/projects/all'
-                        : 'http://localhost:3000/api/projects';
+                    // Use community endpoint for both teachers and students
+                    const endpoint = 'http://localhost:3000/api/projects/community';
                     
                     const res = await fetch(endpoint, {
-                        headers: { 'x-auth-token': token }
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (!res.ok) {
@@ -564,12 +549,10 @@
             const loadTeamMembers = async () => {
                 try {
                     // For now, we'll use the project authors as team members
-                    const endpoint = userRole === 'teacher' 
-                        ? 'http://localhost:3000/api/projects/all'
-                        : 'http://localhost:3000/api/projects';
+                    const endpoint = 'http://localhost:3000/api/projects/community';
                     
                     const res = await fetch(endpoint, {
-                        headers: { 'x-auth-token': token }
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (res.ok) {
@@ -626,12 +609,11 @@
             // --- Load Recent Projects for Project List ---
             const loadRecentProjects = async () => {
                 try {
-                    const endpoint = userRole === 'teacher' 
-                        ? 'http://localhost:3000/api/projects/all'
-                        : 'http://localhost:3000/api/projects';
+                    // Use community endpoint for both teachers and students
+                    const endpoint = 'http://localhost:3000/api/projects/community';
                     
                     const res = await fetch(endpoint, {
-                        headers: { 'x-auth-token': token }
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (res.ok) {
@@ -688,13 +670,14 @@
             // --- API Call to Fetch and Display Projects ---
             const loadProjects = async () => {
                 try {
-                    // Teachers see all projects, students see only their own
-                    const endpoint = userRole === 'teacher' 
-                        ? 'http://localhost:3000/api/projects/all'
-                        : 'http://localhost:3000/api/projects';
+                    // Use community endpoint for both teachers and students
+                    const endpoint = 'http://localhost:3000/api/projects/community';
+                    console.log('Loading projects from:', endpoint);
+                    console.log('User role:', userRole);
+                    console.log('Token present:', !!token);
                     
                     const res = await fetch(endpoint, {
-                        headers: { 'x-auth-token': token }
+                        headers: { 'Authorization': `Bearer ${token}` }
                     });
                     
                     if (!res.ok) {
@@ -733,8 +716,8 @@
                                             ${projectUrl !== '#' ? `<a href="${projectUrl}" target="_blank" class="btn-view-project" title="View Project"><i class="fas fa-external-link-alt"></i></a>` : ''}
                                             ${githubUrl ? `<a href="${githubUrl}" target="_blank" class="btn-github" title="View Code"><i class="fab fa-github"></i></a>` : ''}
                                             ${userRole === 'teacher' ? `
-                                                <button class="btn-upvote" data-project-id="${project._id}" title="Upvote Project"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</button>
-                                                <button class="btn-downvote" data-project-id="${project._id}" title="Downvote Project"><i class="fas fa-thumbs-down"></i> ${project.downvotes || 0}</button>
+                                                <button type="button" class="btn-upvote" data-project-id="${project._id}" title="Upvote Project"><i class="fas fa-thumbs-up"></i> ${project.upvotes || 0}</button>
+                                                <button type="button" class="btn-downvote" data-project-id="${project._id}" title="Downvote Project"><i class="fas fa-thumbs-down"></i> ${project.downvotes || 0}</button>
                                             ` : ''}
                                         </div>
                                     </div>
@@ -810,165 +793,187 @@
                             return;
                         }
                         
-                        // Handle upvote buttons
-                        const upvoteButtons = document.querySelectorAll('.btn-upvote');
-                        upvoteButtons.forEach(button => {
-                            button.addEventListener('click', async (e) => {
-                                e.preventDefault();
-                                const projectId = button.getAttribute('data-project-id');
-                                
-                                if (!projectId) {
-                                    showNotification('Invalid project ID', 'error');
-                                    return;
-                                }
-                                
-                                button.disabled = true;
-                                const originalContent = button.innerHTML;
-                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                                
-                                try {
-                                    const res = await fetch(`http://localhost:3000/api/projects/${projectId}/upvote`, {
-                                        method: 'POST',
-                                        headers: { 
-                                            'x-auth-token': token,
-                                            'Content-Type': 'application/json'
-                                        }
-                                    });
-                                    
-                                    // Check if response is JSON
-                                    const contentType = res.headers.get('content-type');
-                                    if (!contentType || !contentType.includes('application/json')) {
-                                        throw new Error('Server returned invalid response format');
-                                    }
-                                    
-                                    const responseData = await res.json();
-                                    
-                                    if (!res.ok) {
-                                        throw new Error(responseData.message || `Server error: ${res.status}`);
-                                    }
-                                    
-                                    const updatedProject = responseData;
-                                    button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
-                                    
-                                    // Update the stats display as well
-                                    const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
-                                    if (statsUpvote) {
-                                        statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
-                                    }
-                                    
-                                    // Update downvote count if it changed
-                                    if (updatedProject.downvotes !== undefined) {
-                                        const projectCardActions = button.closest('.project-card-actions');
-                                        const downvoteButton = projectCardActions?.querySelector('.btn-downvote');
-                                        if (downvoteButton) {
-                                            downvoteButton.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
-                                            downvoteButton.disabled = false; // Re-enable downvote button
-                                        }
-                                        const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
-                                        if (statsDownvote) {
-                                            statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
-                                        }
-                                    }
-                                    
-                                    showNotification('Project upvoted successfully!', 'success');
-                                    
-                                } catch (error) {
-                                    console.error('Upvote error:', error);
-                                    button.innerHTML = originalContent;
-                                    
-                                    // Handle specific error cases
-                                    if (error.message.includes('already upvoted')) {
-                                        showNotification('You have already upvoted this project', 'info');
-                                    } else if (error.message.includes('Project not found')) {
-                                        showNotification('Project not found', 'error');
-                                    } else {
-                                        showNotification(`Failed to upvote: ${error.message}`, 'error');
-                                    }
-                                } finally {
-                                    button.disabled = false;
+                        // Use event delegation to avoid multiple event handlers
+                        // Remove any existing delegated event listeners first
+                        document.removeEventListener('click', handleVotingClick);
+                        document.addEventListener('click', handleVotingClick);
+                        
+                        console.log('Voting functionality added using event delegation');
+                    }
+                    
+                    // Handle voting clicks using event delegation
+                    function handleVotingClick(e) {
+                        // Check if clicked element is an upvote button
+                        if (e.target.closest('.btn-upvote')) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const button = e.target.closest('.btn-upvote');
+                            console.log('Upvote button clicked - using PUT method');
+                            const projectId = button.getAttribute('data-project-id');
+                            
+                            if (!projectId) {
+                                showNotification('Invalid project ID', 'error');
+                                return;
+                            }
+                            
+                            handleUpvote(button, projectId);
+                        }
+                        
+                        // Check if clicked element is a downvote button
+                        if (e.target.closest('.btn-downvote')) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const button = e.target.closest('.btn-downvote');
+                            console.log('Downvote button clicked - using PUT method');
+                            const projectId = button.getAttribute('data-project-id');
+                            
+                            if (!projectId) {
+                                showNotification('Invalid project ID', 'error');
+                                return;
+                            }
+                            
+                            handleDownvote(button, projectId);
+                        }
+                    }
+                    
+                    // Handle upvote action
+                    async function handleUpvote(button, projectId) {
+                        if (button.disabled) return; // Prevent double-clicks
+                        
+                        button.disabled = true;
+                        const originalContent = button.innerHTML;
+                        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        
+                        try {
+                            console.log('Sending PUT request to upvote endpoint:', `http://localhost:3000/api/projects/${projectId}/upvote`);
+                            const res = await fetch(`http://localhost:3000/api/projects/${projectId}/upvote`, {
+                                method: 'PUT',
+                                headers: { 
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
                                 }
                             });
-                        });
+                            
+                            // Check if response is JSON
+                            const contentType = res.headers.get('content-type');
+                            if (!contentType || !contentType.includes('application/json')) {
+                                throw new Error('Server returned invalid response format');
+                            }
+                            
+                            const responseData = await res.json();
+                            
+                            if (!res.ok) {
+                                throw new Error(responseData.message || `Server error: ${res.status}`);
+                            }
+                            
+                            const updatedProject = responseData;
+                            button.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotedBy ? updatedProject.upvotedBy.length : 0}`;
+                            
+                            // Update the stats display as well
+                            const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
+                            if (statsUpvote) {
+                                statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotedBy ? updatedProject.upvotedBy.length : 0}`;
+                            }
+                            
+                            // Update downvote count if it changed
+                            const projectCardActions = button.closest('.project-card-actions');
+                            const downvoteButton = projectCardActions?.querySelector('.btn-downvote');
+                            if (downvoteButton) {
+                                downvoteButton.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotedBy ? updatedProject.downvotedBy.length : 0}`;
+                                downvoteButton.disabled = false; // Re-enable downvote button
+                            }
+                            const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
+                            if (statsDownvote) {
+                                statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotedBy ? updatedProject.downvotedBy.length : 0}`;
+                            }
+                            
+                            showNotification('Project upvoted successfully!', 'success');
+                            
+                        } catch (error) {
+                            console.error('Upvote error:', error);
+                            button.innerHTML = originalContent;
+                            
+                            // Handle specific error cases
+                            if (error.message.includes('already upvoted')) {
+                                showNotification('You have already upvoted this project', 'info');
+                            } else if (error.message.includes('Project not found')) {
+                                showNotification('Project not found', 'error');
+                            } else {
+                                showNotification(`Failed to upvote: ${error.message}`, 'error');
+                            }
+                        } finally {
+                            button.disabled = false;
+                        }
+                    }
 
-                        // Handle downvote buttons
-                        const downvoteButtons = document.querySelectorAll('.btn-downvote');
-                        downvoteButtons.forEach(button => {
-                            button.addEventListener('click', async (e) => {
-                                e.preventDefault();
-                                const projectId = button.getAttribute('data-project-id');
-                                
-                                if (!projectId) {
-                                    showNotification('Invalid project ID', 'error');
-                                    return;
-                                }
-                                
-                                button.disabled = true;
-                                const originalContent = button.innerHTML;
-                                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-                                
-                                try {
-                                    const res = await fetch(`http://localhost:3000/api/projects/${projectId}/downvote`, {
-                                        method: 'POST',
-                                        headers: { 
-                                            'x-auth-token': token,
-                                            'Content-Type': 'application/json'
-                                        }
-                                    });
-                                    
-                                    // Check if response is JSON
-                                    const contentType = res.headers.get('content-type');
-                                    if (!contentType || !contentType.includes('application/json')) {
-                                        throw new Error('Server returned invalid response format');
-                                    }
-                                    
-                                    const responseData = await res.json();
-                                    
-                                    if (!res.ok) {
-                                        throw new Error(responseData.message || `Server error: ${res.status}`);
-                                    }
-                                    
-                                    const updatedProject = responseData;
-                                    button.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
-                                    
-                                    // Update the stats display as well
-                                    const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
-                                    if (statsDownvote) {
-                                        statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotes || 0}`;
-                                    }
-                                    
-                                    // Update upvote count if it changed
-                                    if (updatedProject.upvotes !== undefined) {
-                                        const projectCardActions = button.closest('.project-card-actions');
-                                        const upvoteButton = projectCardActions?.querySelector('.btn-upvote');
-                                        if (upvoteButton) {
-                                            upvoteButton.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
-                                            upvoteButton.disabled = false; // Re-enable upvote button
-                                        }
-                                        const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
-                                        if (statsUpvote) {
-                                            statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotes || 0}`;
-                                        }
-                                    }
-                                    
-                                    showNotification('Project downvoted successfully!', 'success');
-                                    
-                                } catch (error) {
-                                    console.error('Downvote error:', error);
-                                    button.innerHTML = originalContent;
-                                    
-                                    // Handle specific error cases
-                                    if (error.message.includes('already downvoted')) {
-                                        showNotification('You have already downvoted this project', 'info');
-                                    } else if (error.message.includes('Project not found')) {
-                                        showNotification('Project not found', 'error');
-                                    } else {
-                                        showNotification(`Failed to downvote: ${error.message}`, 'error');
-                                    }
-                                } finally {
-                                    button.disabled = false;
+                    // Handle downvote action
+                    async function handleDownvote(button, projectId) {
+                        if (button.disabled) return; // Prevent double-clicks
+                        
+                        button.disabled = true;
+                        const originalContent = button.innerHTML;
+                        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        
+                        try {
+                            console.log('Sending PUT request to downvote endpoint:', `http://localhost:3000/api/projects/${projectId}/downvote`);
+                            const res = await fetch(`http://localhost:3000/api/projects/${projectId}/downvote`, {
+                                method: 'PUT',
+                                headers: { 
+                                    'Authorization': `Bearer ${token}`,
+                                    'Content-Type': 'application/json'
                                 }
                             });
-                        });
+                            
+                            // Check if response is JSON
+                            const contentType = res.headers.get('content-type');
+                            if (!contentType || !contentType.includes('application/json')) {
+                                throw new Error('Server returned invalid response format');
+                            }
+                            
+                            const responseData = await res.json();
+                            
+                            if (!res.ok) {
+                                throw new Error(responseData.message || `Server error: ${res.status}`);
+                            }
+                            
+                            const updatedProject = responseData;
+                            button.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotedBy ? updatedProject.downvotedBy.length : 0}`;
+                            
+                            // Update the stats display as well
+                            const statsDownvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-down')?.parentElement;
+                            if (statsDownvote) {
+                                statsDownvote.innerHTML = `<i class="fas fa-thumbs-down"></i> ${updatedProject.downvotedBy ? updatedProject.downvotedBy.length : 0}`;
+                            }
+                            
+                            // Update upvote count if it changed
+                            const projectCardActions = button.closest('.project-card-actions');
+                            const upvoteButton = projectCardActions?.querySelector('.btn-upvote');
+                            if (upvoteButton) {
+                                upvoteButton.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotedBy ? updatedProject.upvotedBy.length : 0}`;
+                                upvoteButton.disabled = false; // Re-enable upvote button
+                            }
+                            const statsUpvote = button.closest('.project-card')?.querySelector('.stat-item i.fa-thumbs-up')?.parentElement;
+                            if (statsUpvote) {
+                                statsUpvote.innerHTML = `<i class="fas fa-thumbs-up"></i> ${updatedProject.upvotedBy ? updatedProject.upvotedBy.length : 0}`;
+                            }
+                            
+                            showNotification('Project downvoted successfully!', 'success');
+                            
+                        } catch (error) {
+                            console.error('Downvote error:', error);
+                            button.innerHTML = originalContent;
+                            
+                            // Handle specific error cases
+                            if (error.message.includes('already downvoted')) {
+                                showNotification('You have already downvoted this project', 'info');
+                            } else if (error.message.includes('Project not found')) {
+                                showNotification('Project not found', 'error');
+                            } else {
+                                showNotification(`Failed to downvote: ${error.message}`, 'error');
+                            }
+                        } finally {
+                            button.disabled = false;
+                        }
                     }
                 } catch (err) {
                     console.error(err);

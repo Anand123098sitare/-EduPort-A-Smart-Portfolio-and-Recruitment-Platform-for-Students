@@ -29,7 +29,7 @@
                 <path d="M8 12l2 2 4-4"/>
               </svg>
             </div>
-            <span class="logo-text">EduPort</span>
+            <span class="logo-text">Edu</span>
           </div>
         </div>
         
@@ -230,7 +230,7 @@
         try {
           const token = localStorage.getItem('token');
           const response = await fetch('http://localhost:3000/api/users/me', {
-            headers: { 'x-auth-token': token }
+            headers: { 'Authorization': `Bearer ${token}` }
           });
           
           if (response.ok) {
@@ -251,18 +251,38 @@
       async function loadStudentProjects() {
         try {
           const token = localStorage.getItem('token');
-          const response = await fetch('http://localhost:3000/api/projects', {
-            headers: { 'x-auth-token': token }
+          // Use the community endpoint and filter for user's projects
+          const response = await fetch('http://localhost:3000/api/projects/community', {
+            headers: { 'Authorization': `Bearer ${token}` }
           });
           
           if (response.ok) {
-            const projects = await response.json();
-            displayProjects(projects);
-            updateStats(projects);
+            const allProjects = await response.json();
+            
+            // Get current user ID from token to filter projects
+            const userId = getUserIdFromToken(token);
+            const userProjects = userId ? allProjects.filter(project => project.user === userId) : [];
+            
+            displayProjects(userProjects);
+            updateStats(userProjects);
+          } else {
+            console.error('Failed to load projects:', response.status);
+            showNotification('Failed to load projects', 'error');
           }
         } catch (error) {
           console.error('Error loading projects:', error);
           showNotification('Error loading projects', 'error');
+        }
+      }
+      
+      // Helper function to extract user ID from JWT token
+      function getUserIdFromToken(token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          return payload.user.id;
+        } catch (error) {
+          console.error('Error parsing token:', error);
+          return null;
         }
       }
 

@@ -90,6 +90,11 @@ body {
   min-height: 100vh;
   background: var(--background);
 }
+.dashboard-header{
+  line-height: 1.5;
+  gap: 3vw;
+  display: flex;
+}
 
 /* Sidebar Styles */
 .sidebar {
